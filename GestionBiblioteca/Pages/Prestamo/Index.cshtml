@@ -1,0 +1,48 @@
+@page
+@model GestionBiblioteca.Pages.Prestamo.Index
+
+@{
+    ViewData["Title"] = "Prestamos";
+}
+
+<h1>Prestamos</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Nombre
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prestamos[0].FechaPrestamo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prestamos[0].FechaCancelacion)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Prestamos) {
+        <tr>
+            <td>
+                @item.IdUsuarioNavigation.PrimerNombre @item.IdUsuarioNavigation.PrimerApellido
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaPrestamo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaCancelacion)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - GestionBiblioteca</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/GestionBiblioteca.styles.css" asp-append-version="true" />
+</head>
+<body>
+<div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-end" id="sidebar-wrapper">
+        <div class="sidebar-heading border-bottom fw-bold py-3 text-center">
+            Gestion Biblioteca
+        </div>
+        <div class="list-group list-group-flush">
+            <a asp-page="/Libros/Index" class="list-group-item list-group-item-action py-3">Libros</a>
+            <a asp-page="/Prestamo/Index" class="list-group-item list-group-item-action py-3">Préstamos</a>
+            <a asp-page="/Lectores/Create" class="list-group-item list-group-item-action py-3">Agregar lector</a>
+        </div>
+    </div>
+
+    <!-- Page content -->
+    <div id="page-content-wrapper" class="flex-grow-1">
+        <div class="container-fluid p-4">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+
+        <footer class="border-top footer text-muted text-center py-3 mt-auto">
+            <div class="container">
+                &copy; 2025 - Gestion Biblioteca
+            </div>
+        </footer>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

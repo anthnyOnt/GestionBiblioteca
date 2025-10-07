@@ -1,0 +1,78 @@
+@page
+@model GestionBiblioteca.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Usuario</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Usuario.Id" />
+            <div class="form-group">
+                
+                <label asp-for="Usuario.PrimerNombre" class="control-label"></label>
+                <input asp-for="Usuario.PrimerNombre" class="form-control" />
+                <span asp-validation-for="Usuario.PrimerNombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                
+                <label asp-for="Usuario.SegundoNombre" class="control-label"></label>
+                <input asp-for="Usuario.SegundoNombre" class="form-control" />
+                <span asp-validation-for="Usuario.SegundoNombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                
+                <label asp-for="Usuario.PrimerApellido" class="control-label"></label>
+                <input asp-for="Usuario.PrimerApellido" class="form-control" />
+                <span asp-validation-for="Usuario.PrimerApellido" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                
+                <label asp-for="Usuario.SegundoApellido" class="control-label"></label>
+                <input asp-for="Usuario.SegundoApellido" class="form-control" />
+                <span asp-validation-for="Usuario.SegundoApellido" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                
+                <label asp-for="Usuario.Ci" class="control-label"></label>
+                <input asp-for="Usuario.Ci" class="form-control" />
+                <span asp-validation-for="Usuario.Ci" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                
+                <label asp-for="Usuario.Telefono" class="control-label"></label>
+                <input asp-for="Usuario.Telefono" class="form-control" />
+                <span asp-validation-for="Usuario.Telefono" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                
+                <label asp-for="Usuario.Correo" class="control-label"></label>
+                <input asp-for="Usuario.Correo" class="form-control" />
+                <span asp-validation-for="Usuario.Correo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                
+                <label asp-for="Usuario.Contrasenia" class="control-label"></label>
+                <input asp-for="Usuario.Contrasenia" class="form-control" />
+                <span asp-validation-for="Usuario.Contrasenia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,85 @@
+@page
+@model GestionBiblioteca.Pages.Prestamo.Create
+
+<h2>Crear Préstamo</h2>
+
+<!-- Search Usuario -->
+<form method="get">
+    <label>Buscar Usuario por CI:</label>
+    <input type="text" name="ci" value="@Model.Ci" />
+    <button type="submit">Buscar</button>
+</form>
+
+@if (Model.UsuarioEncontrado != null)
+{
+    <p><strong>Usuario:</strong> @Model.UsuarioEncontrado.PrimerNombre @Model.UsuarioEncontrado.PrimerApellido (@Model.UsuarioEncontrado.Ci)</p>
+}
+
+<hr />
+
+<!-- Search Libro -->
+<form method="get">
+    <input type="hidden" name="ci" value="@Model.Ci" /> <!-- keeps the CI when searching -->
+    <label>Buscar Libro:</label>
+    <input type="text" name="titulo" value="@Model.Titulo" />
+    <button type="submit">Buscar</button>
+</form>
+
+@if (Model.LibrosEncontrados?.Any() == true)
+{
+    <h4>Resultados</h4>
+    @foreach (var libro in Model.LibrosEncontrados)
+    {
+        <div>
+            <strong>@libro.Titulo</strong>
+            <ul>
+                @foreach (var ej in libro.Ejemplares)
+                {
+                    <li>
+                         Ejemplar #@ej.Id
+                        @if (Model.EjemplaresSeleccionados.Contains(ej.Id))
+                        {
+                            <form method="post" asp-page-handler="QuitarEjemplar">
+                                <input type="hidden" name="ejemplarId" value="@ej.Id" />
+                                <input type="hidden" name="ci" value="@Model.Ci" />
+                                <input type="hidden" name="titulo" value="@Model.Titulo" />
+                                <button type="submit">Quitar</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form method="post" asp-page-handler="AgregarEjemplar">
+                                <input type="hidden" name="ejemplarId" value="@ej.Id" />
+                                <input type="hidden" name="ci" value="@Model.Ci" />
+                                <input type="hidden" name="titulo" value="@Model.Titulo" />
+                                <button type="submit">Agregar</button>
+                            </form>
+                        }
+                    </li>
+                }
+            </ul>
+        </div>
+        <form method="post" aps-page-handler="">
+            
+        </form>
+    }
+}
+
+<hr />
+
+@if (Model.EjemplaresSeleccionadosConDatos.Any())
+{
+    <h4>Ejemplares seleccionados:</h4>
+    <ul>
+        @foreach (var ej in Model.EjemplaresSeleccionadosConDatos)
+        {
+            <li>
+                <strong>@ej.IdLibroNavigation.Titulo</strong>
+                — Ejemplar ID: @ej.Id
+            </li>
+        }
+    </ul>
+    <form method="post">
+        <button type="submit">Guardar prestamo</button>
+    </form>
+}
