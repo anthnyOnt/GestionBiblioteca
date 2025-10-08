@@ -9,4 +9,6 @@ public interface IUsuarioService
     Task<Entities.Usuario> Crear(Entities.Usuario usuario);
     Task<Entities.Usuario?> Actualizar(Entities.Usuario usuario);
     Task<bool> Eliminar(int id);
+
+    Task<Entities.Usuario> AgregarLector(Entities.Usuario lector);
 }
