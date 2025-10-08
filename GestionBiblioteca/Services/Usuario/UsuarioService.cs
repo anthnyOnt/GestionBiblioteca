@@ -105,4 +105,14 @@ public class UsuarioService: IUsuarioService
         }
         return false;
     }
+
+    public async Task<Entities.Usuario> AgregarLector(Entities.Usuario lector)
+    {
+        lector.Activo = 1;
+        lector.CreadoPor = ObtenerIdSesion();
+        lector.FechaCreacion = DateTime.Now;
+        lector.Rol = "LECTOR";
+        await _repositoryFactory.ObtenerRepository<Entities.Usuario>().Agregar(lector);
+        return lector;
+    }
 }
