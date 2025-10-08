@@ -5,8 +5,8 @@ namespace GestionBiblioteca.Repository;
 
 public interface IRepository<T> where T : class
 {
-    // public Task<List<T>> ObtenerTodos();
-    public IQueryable<T> ObtenerTodos();
+    public Task<List<T>> ObtenerTodos();
+    public IQueryable<T> ObtenerPorConsulta();
     Task<T?> ObtenerPorId(int id);
     Task Agregar(T entidad);
     Task Actualizar(T entidad);

@@ -46,7 +46,7 @@ public class AutorService: IAutorService
     
     public async Task<List<Entities.Autor>> ObtenerTodos()
     {
-        return await _repositoryFactory.ObtenerRepository<Entities.Autor>().ObtenerTodos()
+        return await _repositoryFactory.ObtenerRepository<Entities.Autor>().ObtenerPorConsulta()
             // .Where(u => u.Activo.Equals(1))
             .ToListAsync();
     }

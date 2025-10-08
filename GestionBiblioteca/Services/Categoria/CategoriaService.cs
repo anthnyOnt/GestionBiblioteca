@@ -46,7 +46,7 @@ public class CategoriaService: ICategoriaService
     
     public async Task<List<Entities.Categoria>> ObtenerTodos()
     {
-        return await _repositoryFactory.ObtenerRepository<Entities.Categoria>().ObtenerTodos()
+        return await _repositoryFactory.ObtenerRepository<Entities.Categoria>().ObtenerPorConsulta()
             // .Where(u => u.Activo.Equals(1))
             .ToListAsync();
     }

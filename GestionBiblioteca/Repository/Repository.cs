@@ -15,12 +15,12 @@ public class Repository<T>: IRepository<T> where T: class
         _dbSet = context.Set<T>();
     }
 
-    // public async Task<List<T>> ObtenerTodos()
-    // {
-    //     return await _dbSet.ToListAsync();
-    // }
+    public async Task<List<T>> ObtenerTodos()
+    {
+        return await _dbSet.ToListAsync();
+    }
 
-    public IQueryable<T> ObtenerTodos()
+    public IQueryable<T> ObtenerPorConsulta()
     {
         return _dbSet.AsQueryable();
     }

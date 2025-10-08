@@ -46,7 +46,7 @@ public class UsuarioService: IUsuarioService
     
     public async Task<List<Entities.Usuario>> ObtenerTodos()
     {
-        return await _repositoryFactory.ObtenerRepository<Entities.Usuario>().ObtenerTodos()
+        return await _repositoryFactory.ObtenerRepository<Entities.Usuario>().ObtenerPorConsulta()
             .Where(u => u.Activo.Equals(1))
             .ToListAsync();
     }
@@ -58,7 +58,7 @@ public class UsuarioService: IUsuarioService
 
     public async Task<Entities.Usuario> ObtenerPorCi(string ci)
     {
-        return await _repositoryFactory.ObtenerRepository<Entities.Usuario>().ObtenerTodos()
+        return await _repositoryFactory.ObtenerRepository<Entities.Usuario>().ObtenerPorConsulta()
             .Where(u => u.Activo.Equals(1) && u.Ci.Equals(ci))
             .FirstOrDefaultAsync();
     }
