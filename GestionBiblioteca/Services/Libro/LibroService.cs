@@ -48,7 +48,7 @@ public class LibroService: ILibroService
     public async Task<List<Entities.Libro>> ObtenerTodos()
     {
         
-        return await _repositoryFactory.ObtenerRepository<Entities.Libro>().ObtenerTodos()
+        return await _repositoryFactory.ObtenerRepository<Entities.Libro>().ObtenerPorConsulta()
             // .Where(u => u.Activo.Equals(1))
             .ToListAsync();
     }
@@ -60,8 +60,7 @@ public class LibroService: ILibroService
 
     public async Task<List<Entities.Libro>> ObtenerEjemplaresPorTitulo(string titulo)
     {
-        return await _repositoryFactory.ObtenerRepository<Entities.Libro>()
-            .ObtenerTodos()
+        return await _repositoryFactory.ObtenerRepository<Entities.Libro>().ObtenerPorConsulta()
             .Where(l => l.Titulo.Contains(titulo))
             .Select(l => new Entities.Libro
             {

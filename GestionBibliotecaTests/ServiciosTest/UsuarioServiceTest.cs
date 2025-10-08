@@ -97,7 +97,7 @@ namespace GestionBibliotecaTests
                 new Usuario { Id = 2, Activo = 0 }
             }.BuildMockAsyncQueryable();
 
-            _mockUsuarioRepo.Setup(r => r.ObtenerTodos()).Returns(usuarios);
+            _mockUsuarioRepo.Setup(r => r.ObtenerPorConsulta()).Returns(usuarios);
 
             var result = await _usuarioService.ObtenerTodos();
 

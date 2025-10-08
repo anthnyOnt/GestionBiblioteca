@@ -46,7 +46,7 @@ public class EditorialService: IEditorialService
     
     public async Task<List<Entities.Editorial>> ObtenerTodos()
     {
-        return await _repositoryFactory.ObtenerRepository<Entities.Editorial>().ObtenerTodos()
+        return await _repositoryFactory.ObtenerRepository<Entities.Editorial>().ObtenerPorConsulta()
             // .Where(u => u.Activo.Equals(1))
             .ToListAsync();
     }

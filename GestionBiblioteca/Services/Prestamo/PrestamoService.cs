@@ -15,7 +15,7 @@ public class PrestamoService: IPrestamoService
     
     public async Task<List<Entities.Prestamo>> ObtenerTodos()
     {
-        return await _repositoryFactory.ObtenerRepository<Entities.Prestamo>().ObtenerTodos()
+        return await _repositoryFactory.ObtenerRepository<Entities.Prestamo>().ObtenerPorConsulta()
             .Include(p => p.IdUsuarioNavigation)
             .Include(p => p.PrestamoEjemplares)
             .Where(p => p.Activo == 1)
@@ -24,7 +24,7 @@ public class PrestamoService: IPrestamoService
     
     public async Task<Entities.Prestamo?> ObtenerPorId(int id)
     {
-        return await _repositoryFactory.ObtenerRepository<Entities.Prestamo>().ObtenerTodos()
+        return await _repositoryFactory.ObtenerRepository<Entities.Prestamo>().ObtenerPorConsulta()
             .Include(p => p.IdUsuarioNavigation)
             .Include(p => p.PrestamoEjemplares)
             .ThenInclude(pe => pe.IdEjemplarNavigation)
