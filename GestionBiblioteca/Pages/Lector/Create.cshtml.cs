@@ -30,7 +30,7 @@ namespace GestionBiblioteca.Pages.Lector
             }
 
             await _service.AgregarLector(Lector);
-            return RedirectToPage("./Index");
+            return RedirectToPage("../Index");
         }
     }
 }

@@ -1,15 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using GestionBiblioteca.Services.Usuario;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using GestionBiblioteca.Context;
-using GestionBiblioteca.Entities;
-using GestionBiblioteca.Services.Usuario;
 
-namespace GestionBiblioteca
+namespace GestionBiblioteca.Pages.Usuario
 {
     public class DeleteModel : PageModel
     {
@@ -21,7 +14,7 @@ namespace GestionBiblioteca
         }
 
         [BindProperty]
-        public Usuario Usuario { get; set; } = default!;
+        public Entities.Usuario Usuario { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
