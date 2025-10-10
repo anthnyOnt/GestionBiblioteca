@@ -21,7 +21,7 @@ namespace GestionBiblioteca.Tests.Entities
             Activo = 1
         };
 
-        // ? Usuario válido
+        //  Usuario válido
         [Fact]
         public void Usuario_Valido_NoGeneraErrores()
         {
@@ -30,7 +30,7 @@ namespace GestionBiblioteca.Tests.Entities
             Assert.Empty(result);
         }
 
-        // ?? PrimerNombre
+        //PrimerNombre
         [Fact]
         public void Usuario_SinPrimerNombre_GeneraError()
         {
@@ -67,7 +67,7 @@ namespace GestionBiblioteca.Tests.Entities
             Assert.Contains(result, r => r.MemberNames.Contains("PrimerNombre"));
         }
 
-        // ?? SegundoNombre
+        // SegundoNombre
         [Fact]
         public void Usuario_SegundoNombreConNumeros_GeneraError()
         {
@@ -86,7 +86,7 @@ namespace GestionBiblioteca.Tests.Entities
             Assert.Contains(result, r => r.MemberNames.Contains("SegundoNombre"));
         }
 
-        // ?? PrimerApellido
+        // PrimerApellido
         [Fact]
         public void Usuario_SinPrimerApellido_GeneraError()
         {
@@ -96,7 +96,7 @@ namespace GestionBiblioteca.Tests.Entities
             Assert.Contains(result, r => r.MemberNames.Contains("PrimerApellido"));
         }
 
-        // ?? Ci
+        // Ci
         [Fact]
         public void Usuario_SinCi_GeneraError()
         {
@@ -124,7 +124,7 @@ namespace GestionBiblioteca.Tests.Entities
             Assert.Contains(result, r => r.MemberNames.Contains("Ci"));
         }
 
-        // ?? Telefono
+        // Telefono
         [Fact]
         public void Usuario_SinTelefono_GeneraError()
         {
@@ -152,7 +152,7 @@ namespace GestionBiblioteca.Tests.Entities
             Assert.Contains(result, r => r.MemberNames.Contains("Telefono"));
         }
 
-        // ?? Correo
+        //Correo
         [Fact]
         public void Usuario_SinCorreo_GeneraError()
         {
