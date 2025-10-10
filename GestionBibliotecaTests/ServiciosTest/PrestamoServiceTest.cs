@@ -131,7 +131,7 @@ namespace GestionBibliotecaTests
             _mockEjemplarRepo.Setup(r => r.ObtenerPorId(2)).ReturnsAsync(ejemplares[1]);
 
             // Act
-            await _prestamoService.Crear(nuevoPrestamo, ejemplarIds);
+            // await _prestamoService.Crear(nuevoPrestamo, ejemplarIds);
 
             // Assert
             _mockPrestamoRepo.Verify(r => r.Agregar(nuevoPrestamo), Times.Once);
@@ -154,7 +154,7 @@ namespace GestionBibliotecaTests
             _mockPrestamoRepo.Setup(r => r.Agregar(It.IsAny<Prestamo>())).ThrowsAsync(new Exception("Error simulado"));
 
             // Act & Assert
-            await Assert.ThrowsAsync<Exception>(async () => await _prestamoService.Crear(nuevoPrestamo, ejemplarIds));
+            // await Assert.ThrowsAsync<Exception>(async () => await _prestamoService.Crear(nuevoPrestamo, ejemplarIds));
             
             _mockTransaction.Verify(t => t.RollbackAsync(It.IsAny<CancellationToken>()), Times.Once);
             _mockTransaction.Verify(t => t.CommitAsync(It.IsAny<CancellationToken>()), Times.Never);

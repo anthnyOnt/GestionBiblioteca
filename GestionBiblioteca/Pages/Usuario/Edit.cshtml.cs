@@ -1,69 +1,33 @@
+using System;
+using System.Threading.Tasks;
+using GestionBiblioteca.Services.Usuario;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using GestionBiblioteca.Entities;
-using GestionBiblioteca.Services.Usuario;
 
-namespace GestionBiblioteca
+namespace GestionBiblioteca.Pages.Usuario;
+
+public class Edit : PageModel
 {
-    public class EditModel : PageModel
+    private readonly IUsuarioService _svc;
+    public Edit(IUsuarioService svc) { _svc = svc; }
+
+    [FromRoute] public int Id { get; set; }
+    [BindProperty] public Entities.Usuario Input { get; set; } = new();
+
+    public async Task<IActionResult> OnGetAsync(int id)
     {
-        private readonly IUsuarioService _service;
+        var u = await _svc.ObtenerPorId(id);
+        if (u == null) return RedirectToPage("Index");
+        Input = u;
+        return Page();
+    }
 
-        public EditModel(IUsuarioService service)
-        {
-            _service = service;
-        }
-
-        [BindProperty]
-        public Usuario Usuario { get; set; } = default!;
-
-        public async Task<IActionResult> OnGetAsync(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var usuario = await _service.ObtenerPorId((int)id);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
-            Usuario = usuario;
-            return Page();
-        }
-
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more information, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
-        {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            try
-            {
-                var updatedUsuario = await _service.Actualizar(Usuario);
-            }
-            catch (Exception ex)
-            {
-                if (!UsuarioExists(Usuario.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return RedirectToPage("./Index");
-        }
-
-        private bool UsuarioExists(int id)
-        {
-            return _service.ObtenerPorId(id) != null;
-        }
+    public async Task<IActionResult> OnPostAsync()
+    {
+        if (!ModelState.IsValid) return Page();
+        Input.Id = Id;
+        Input.UltimaActualizacion = DateTime.Now;
+        await _svc.Actualizar(Input);
+        return RedirectToPage("Index");
     }
 }

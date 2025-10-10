@@ -1,43 +1,29 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using GestionBiblioteca.Services.Usuario;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using GestionBiblioteca.Context;
-using GestionBiblioteca.Entities;
-using GestionBiblioteca.Services.Usuario;
 
-namespace GestionBiblioteca
+namespace GestionBiblioteca.Pages.Usuario;
+
+public class Create : PageModel
 {
-    public class CreateModel : PageModel
+    private readonly IUsuarioService _svc;
+    public Create(IUsuarioService svc) { _svc = svc; }
+
+    [BindProperty] public Entities.Usuario Input { get; set; } = new();
+
+    public void OnGet() { }
+
+    public async Task<IActionResult> OnPostAsync()
     {
-        private readonly IUsuarioService _service;
+        if (!ModelState.IsValid) return Page();
+        Input.Rol = "lector";
+        Input.Activo = 1;
+        Input.FechaCreacion = DateTime.Now;
+        Input.UltimaActualizacion = DateTime.Now;
 
-        public CreateModel(IUsuarioService service)
-        {
-            _service = service;
-        }
-
-        public IActionResult OnGet()
-        {
-            return Page();
-        }
-
-        [BindProperty]
-        public Usuario Usuario { get; set; } = default!;
-
-        // For more information, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
-        {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            await _service.Crear(Usuario);
-            return RedirectToPage("./Index");
-        }
+        await _svc.Crear(Input);
+        return RedirectToPage("Index");
     }
 }

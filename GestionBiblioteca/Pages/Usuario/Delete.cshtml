@@ -1,76 +1,19 @@
-@page
-@model DeleteModel
-
+﻿@page "{id:int}"
+@model GestionBiblioteca.Pages.Usuario.Delete
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Eliminar lector";
 }
+<div class="page-title">
+    <div class="icon"><i class="bi bi-person-x"></i></div>
+    <h1 class="h3 m-0">Eliminar lector</h1>
+</div>
 
-<h1>Delete</h1>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Usuario</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Usuario.PrimerNombre)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Usuario.PrimerNombre)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Usuario.SegundoNombre)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Usuario.SegundoNombre)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Usuario.PrimerApellido)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Usuario.PrimerApellido)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Usuario.SegundoApellido)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Usuario.SegundoApellido)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Usuario.Ci)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Usuario.Ci)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Usuario.Telefono)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Usuario.Telefono)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Usuario.Correo)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Usuario.Correo)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Usuario.Contrasenia)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Usuario.Contrasenia)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Usuario.Rol)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Usuario.Rol)
-        </dd>
-    </dl>
-    
-    <form method="post">
-        <input type="hidden" asp-for="Usuario.Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-page="./Index">Back to List</a>
-    </form>
+<div class="card">
+    <div class="card-body">
+        <p class="mb-3">¿Seguro que deseas eliminar a <strong>@Model.Nombre</strong>?</p>
+        <form method="post" class="d-flex gap-2">
+            <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i> Eliminar</button>
+            <a asp-page="Index" class="btn btn-outline-primary">Cancelar</a>
+        </form>
+    </div>
 </div>

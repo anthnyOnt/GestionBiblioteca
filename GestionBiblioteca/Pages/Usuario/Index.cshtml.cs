@@ -1,22 +1,19 @@
-using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using GestionBiblioteca.Services.Usuario;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace GestionBiblioteca.Pages.Usuario
+namespace GestionBiblioteca.Pages.Usuario;
+
+public class Index : PageModel
 {
-    public class IndexModel : PageModel
+    private readonly IUsuarioService _svc;
+    public Index(IUsuarioService svc) { _svc = svc; }
+
+    public IList<Entities.Usuario> Usuarios { get; private set; } = new List<Entities.Usuario>();
+
+    public async Task OnGetAsync()
     {
-        private readonly IUsuarioService _service;
-
-        public IndexModel(IUsuarioService service)
-        {
-            _service = service;
-        }
-
-        public IList<Entities.Usuario> Usuario { get;set; } = default!;
-
-        public async Task OnGetAsync()
-        {
-            Usuario = await _service.ObtenerTodos();
-        }
+        Usuarios = await _svc.ObtenerTodos();
     }
 }

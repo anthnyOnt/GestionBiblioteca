@@ -1,54 +1,29 @@
+using System.Threading.Tasks;
 using GestionBiblioteca.Services.Usuario;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace GestionBiblioteca.Pages.Usuario
+namespace GestionBiblioteca.Pages.Usuario;
+
+public class Delete : PageModel
 {
-    public class DeleteModel : PageModel
+    private readonly IUsuarioService _svc;
+    public Delete(IUsuarioService svc) { _svc = svc; }
+
+    [FromRoute] public int Id { get; set; }
+    public string Nombre { get; private set; } = "";
+
+    public async Task<IActionResult> OnGetAsync(int id)
     {
-        private readonly IUsuarioService _service;
+        var u = await _svc.ObtenerPorId(id);
+        if (u == null) return RedirectToPage("Index");
+        Nombre = $"{u.PrimerNombre} {u.PrimerApellido}";
+        return Page();
+    }
 
-        public DeleteModel(IUsuarioService service)
-        {
-            _service = service;
-        }
-
-        [BindProperty]
-        public Entities.Usuario Usuario { get; set; } = default!;
-
-        public async Task<IActionResult> OnGetAsync(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var usuario = await _service.ObtenerPorId(id.Value);
-
-            if (usuario is not null)
-            {
-                Usuario = usuario;
-
-                return Page();
-            }
-
-            return NotFound();
-        }
-
-        public async Task<IActionResult> OnPostAsync(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var usuario = await _service.ObtenerPorId(id.Value);
-            if (usuario != null)
-            {
-                await _service.Eliminar(id.Value);
-            }
-
-            return RedirectToPage("./Index");
-        }
+    public async Task<IActionResult> OnPostAsync()
+    {
+        await _svc.Eliminar(Id);
+        return RedirectToPage("Index");
     }
 }

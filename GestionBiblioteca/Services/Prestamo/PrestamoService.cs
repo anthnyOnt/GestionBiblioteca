@@ -32,46 +32,64 @@ public class PrestamoService: IPrestamoService
             .FirstOrDefaultAsync(p => p.Id == id);
     }
 
-    public async Task Crear(Entities.Prestamo nuevoPrestamo, List<int> ejemplarIds)
-    {
-        using var transaction = await _repositoryFactory.BeginTransaction();
-
-        try
+    public async Task Crear(int idUsuario, List<PrestamoEjemplar> ejemplares)
         {
-            // 1️⃣ Create the Prestamo
-            await _repositoryFactory.ObtenerRepository<Entities.Prestamo>().Agregar(nuevoPrestamo);
+            if (idUsuario <= 0) throw new ArgumentOutOfRangeException(nameof(idUsuario));
+            if (ejemplares == null || ejemplares.Count == 0) throw new ArgumentException("Debe incluir al menos un ejemplar.", nameof(ejemplares));
 
-            // 2️⃣ Create PrestamoEjemplares
-            foreach (var ejemplarId in ejemplarIds)
+            var idsUnicos = new HashSet<int>();
+            foreach (var l in ejemplares)
             {
-                var prestamoEjemplar = new PrestamoEjemplar
+                if (l.IdEjemplar <= 0) throw new InvalidOperationException("IdEjemplar inválido.");
+                if (!idsUnicos.Add(l.IdEjemplar)) throw new InvalidOperationException($"Ejemplar repetido: {l.IdEjemplar}.");
+                if (l.FechaLimite == null || l.FechaLimite.Value.Date < DateTime.Today)
+                    throw new InvalidOperationException($"Fecha límite inválida para ejemplar {l.IdEjemplar}.");
+            }
+
+            using var tx = await _repositoryFactory.BeginTransaction();
+            try
+            {
+                var nuevo = new Entities.Prestamo
                 {
-                    IdPrestamo = nuevoPrestamo.Id,
-                    IdEjemplar = ejemplarId,
-                    FechaLimite = DateTime.Now.AddDays(7),
-                    Activo = 1
+                    IdUsuario = idUsuario,
+                    FechaPrestamo = DateTime.Now,
+                    Activo = 1,
+                    Cancelado = false
                 };
+                await _repositoryFactory.ObtenerRepository<Entities.Prestamo>().Agregar(nuevo);
 
-                await _repositoryFactory.ObtenerRepository<PrestamoEjemplar>().Agregar(prestamoEjemplar);
-            }
-
-            // 3️⃣ Update each Ejemplar to mark it unavailable
-            foreach (var ejemplarId in ejemplarIds)
-            {
                 var ejemplarRepo = _repositoryFactory.ObtenerRepository<Entities.Ejemplar>();
-                var ejemplar = await ejemplarRepo.ObtenerPorId(ejemplarId);
-                ejemplar.Disponible = false;
-                await ejemplarRepo.Actualizar(ejemplar);
-            }
+                foreach (var l in ejemplares)
+                {
+                    var ej = await ejemplarRepo.ObtenerPorId(l.IdEjemplar)
+                             ?? throw new InvalidOperationException($"Ejemplar {l.IdEjemplar} no existe.");
+                    if (ej.Disponible != true)
+                        throw new InvalidOperationException($"Ejemplar {l.IdEjemplar} no disponible.");
+                    ej.Disponible = false;
+                    await ejemplarRepo.Actualizar(ej);
+                }
 
-            await transaction.CommitAsync();
+                var peRepo = _repositoryFactory.ObtenerRepository<PrestamoEjemplar>();
+                foreach (var l in ejemplares)
+                {
+                    var pe = new PrestamoEjemplar
+                    {
+                        IdPrestamo = nuevo.Id,
+                        IdEjemplar = l.IdEjemplar,
+                        FechaLimite = l.FechaLimite,
+                        Activo = 1
+                    };
+                    await peRepo.Agregar(pe);
+                }
+
+                await tx.CommitAsync();
+            }
+            catch
+            {
+                await tx.RollbackAsync();
+                throw;
+            }
         }
-        catch
-        {
-            await transaction.RollbackAsync();
-            throw;
-        }
-    }
 
 
     public async Task<Entities.Prestamo> PrestarEjemplares(Entities.Prestamo prestamo)

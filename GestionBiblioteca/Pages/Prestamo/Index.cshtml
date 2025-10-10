@@ -1,46 +1,47 @@
-@page
+﻿@page
 @model GestionBiblioteca.Pages.Prestamo.Index
-
 @{
-    ViewData["Title"] = "Prestamos";
+    ViewData["Title"] = "Préstamos";
 }
+<div class="page-title">
+    <div class="icon"><i class="bi bi-journal-check"></i></div>
+    <h1 class="h3 m-0">Préstamos</h1>
+    <div class="ms-auto">
+        <a class="btn btn-primary" asp-page="Create"><i class="bi bi-plus-circle"></i> Nuevo préstamo</a>
+    </div>
+</div>
 
-<h1>Prestamos</h1>
-
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Nombre
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Prestamos[0].FechaPrestamo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Prestamos[0].FechaCancelacion)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Prestamos) {
-        <tr>
-            <td>
-                @item.IdUsuarioNavigation.PrimerNombre @item.IdUsuarioNavigation.PrimerApellido
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaPrestamo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaCancelacion)
-            </td>
-            <td>
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a>
-            </td>
-        </tr>
+@if (Model.Prestamos != null && Model.Prestamos.Count > 0)
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Lector</th>
+                <th>Fecha del Prestamo</th>
+                <th class="text-end">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model.Prestamos)
+            {
+                var limite = p.PrestamoEjemplares != null && p.PrestamoEjemplares.Count > 0
+                ? p.PrestamoEjemplares.Max(pe => pe.FechaLimite)
+                : (DateTime?)null;
+                <tr>
+                    <td>@p.IdUsuarioNavigation?.PrimerNombre @p.IdUsuarioNavigation?.PrimerApellido</td>
+                    <td>@p.FechaPrestamo?.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td class="text-end">
+                        <a class="btn btn-sm btn-outline-primary" asp-page="Details" asp-route-id="@p.Id">
+                            <i class="bi bi-eye"></i> Ver
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
-    </tbody>
-</table>
+else
+{
+
+    <div class="alert">No hay préstamos registrados.</div>
+}
