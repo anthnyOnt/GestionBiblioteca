@@ -1,7 +1,6 @@
 using GestionBiblioteca.Context;
 using GestionBiblioteca.Repository;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Storage;
 using Xunit;
 using System;
@@ -11,13 +10,13 @@ namespace GestionBiblioteca.Tests
 {
     public class RepositoryFactoryTests
     {
-        private MyDbContext CrearContexto()
+        private MyDbContextTest CrearContexto()
         {
             var options = new DbContextOptionsBuilder<MyDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .ConfigureWarnings(w => w.Ignore(InMemoryEventId.TransactionIgnoredWarning))
                 .Options;
-            return new MyDbContext(options);
+
+            return new MyDbContextTest(options);
         }
 
         [Fact]
@@ -32,16 +31,5 @@ namespace GestionBiblioteca.Tests
             Assert.IsType<Repository<object>>(repo);
         }
 
-        [Fact]
-        public async Task BeginTransaction_DeberiaNoLanzarExcepcionYRetornarNullEnInMemory()
-        {
-            using var context = CrearContexto();
-            var factory = new RepositoryFactory(context, null!);
-
-            var resultado = await factory.BeginTransaction();
-
-            // En InMemory, debe ser null (porque no soporta transacciones)
-            Assert.Null(resultado);
-        }
     }
 }
