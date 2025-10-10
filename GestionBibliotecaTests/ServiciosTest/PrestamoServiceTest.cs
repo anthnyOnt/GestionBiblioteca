@@ -118,24 +118,42 @@ namespace GestionBibliotecaTests
         public async Task Crear_GuardaPrestamoYActualizaEjemplares()
         {
             // Arrange
-            var nuevoPrestamo = new Prestamo { Id = 1, IdUsuario = 5 };
-            var ejemplarIds = new List<int> { 1, 2 };
+            int idUsuario = 5;
+            var ejemplares = new List<PrestamoEjemplar>
+            {
+                new PrestamoEjemplar { IdEjemplar = 1, FechaLimite = DateTime.Today.AddDays(7) },
+                new PrestamoEjemplar { IdEjemplar = 2, FechaLimite = DateTime.Today.AddDays(14) }
+            };
             
-            var ejemplares = new List<Ejemplar>
+            var ejemplaresEntities = new List<Ejemplar>
             {
                 new Ejemplar { Id = 1, Disponible = true },
                 new Ejemplar { Id = 2, Disponible = true }
             };
 
-            _mockEjemplarRepo.Setup(r => r.ObtenerPorId(1)).ReturnsAsync(ejemplares[0]);
-            _mockEjemplarRepo.Setup(r => r.ObtenerPorId(2)).ReturnsAsync(ejemplares[1]);
+            _mockEjemplarRepo.Setup(r => r.ObtenerPorId(1)).ReturnsAsync(ejemplaresEntities[0]);
+            _mockEjemplarRepo.Setup(r => r.ObtenerPorId(2)).ReturnsAsync(ejemplaresEntities[1]);
 
             // Act
-            await _prestamoService.Crear(nuevoPrestamo, ejemplarIds);
+            await _prestamoService.Crear(idUsuario, ejemplares);
 
             // Assert
-            _mockPrestamoRepo.Verify(r => r.Agregar(nuevoPrestamo), Times.Once);
-            _mockPrestamoEjemplarRepo.Verify(r => r.Agregar(It.IsAny<PrestamoEjemplar>()), Times.Exactly(2));
+            _mockPrestamoRepo.Verify(r => r.Agregar(It.Is<Prestamo>(p => 
+                p.IdUsuario == idUsuario && 
+                p.FechaPrestamo.HasValue && 
+                p.FechaPrestamo.Value.Date == DateTime.Now.Date && 
+                p.Activo == 1 && 
+                p.Cancelado == false)), Times.Once);
+                
+            _mockPrestamoEjemplarRepo.Verify(r => r.Agregar(It.Is<PrestamoEjemplar>(pe => 
+                pe.IdEjemplar == 1 && 
+                pe.FechaLimite == ejemplares[0].FechaLimite &&
+                pe.Activo == 1)), Times.Once);
+                
+            _mockPrestamoEjemplarRepo.Verify(r => r.Agregar(It.Is<PrestamoEjemplar>(pe => 
+                pe.IdEjemplar == 2 && 
+                pe.FechaLimite == ejemplares[1].FechaLimite &&
+                pe.Activo == 1)), Times.Once);
             
             // Verificar que los ejemplares se marcaron como no disponibles
             _mockEjemplarRepo.Verify(r => r.Actualizar(It.Is<Ejemplar>(e => e.Id == 1 && e.Disponible == false)), Times.Once);
@@ -148,13 +166,17 @@ namespace GestionBibliotecaTests
         public async Task Crear_ErrorEnTransaccion_HaceRollback()
         {
             // Arrange
-            var nuevoPrestamo = new Prestamo { Id = 1, IdUsuario = 5 };
-            var ejemplarIds = new List<int> { 1, 2 };
+            int idUsuario = 5;
+            var ejemplares = new List<PrestamoEjemplar>
+            {
+                new PrestamoEjemplar { IdEjemplar = 1, FechaLimite = DateTime.Today.AddDays(7) },
+                new PrestamoEjemplar { IdEjemplar = 2, FechaLimite = DateTime.Today.AddDays(14) }
+            };
             
             _mockPrestamoRepo.Setup(r => r.Agregar(It.IsAny<Prestamo>())).ThrowsAsync(new Exception("Error simulado"));
 
             // Act & Assert
-            await Assert.ThrowsAsync<Exception>(async () => await _prestamoService.Crear(nuevoPrestamo, ejemplarIds));
+            await Assert.ThrowsAsync<Exception>(async () => await _prestamoService.Crear(idUsuario, ejemplares));
             
             _mockTransaction.Verify(t => t.RollbackAsync(It.IsAny<CancellationToken>()), Times.Once);
             _mockTransaction.Verify(t => t.CommitAsync(It.IsAny<CancellationToken>()), Times.Never);
