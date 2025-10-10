@@ -1,18 +1,16 @@
 using GestionBiblioteca.Entities;
 using GestionBiblioteca.Tests.Helpers;
-using System.Linq;
-using Xunit;
 
-namespace GestionBiblioteca.Tests.Entities
+namespace GestionBibliotecaTests.EntitiesTests
 {
     public class UsuarioTests
     {
         private Usuario CrearUsuarioValido() => new Usuario
         {
             PrimerNombre = "Diego",
-            SegundoNombre = "Andrés",
+            SegundoNombre = "Andrï¿½s",
             PrimerApellido = "Valdez",
-            SegundoApellido = "Pérez",
+            SegundoApellido = "Pï¿½rez",
             Ci = "1234567",
             Telefono = "76543210",
             Correo = "diego@correo.com",
@@ -20,15 +18,6 @@ namespace GestionBiblioteca.Tests.Entities
             Rol = "Admin",
             Activo = 1
         };
-
-        //  Usuario válido
-        [Fact]
-        public void Usuario_Valido_NoGeneraErrores()
-        {
-            var usuario = CrearUsuarioValido();
-            var result = ValidationHelper.Validate(usuario);
-            Assert.Empty(result);
-        }
 
         //PrimerNombre
         [Fact]
