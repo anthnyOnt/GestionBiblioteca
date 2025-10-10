@@ -6,6 +6,7 @@ using GestionBiblioteca.Services.Editorial;
 using GestionBiblioteca.Services.Ejemplar;
 using GestionBiblioteca.Services.Libro;
 using GestionBiblioteca.Services.Prestamo;
+using GestionBiblioteca.Services.PrestamoDraftCache;
 using GestionBiblioteca.Services.Usuario;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,8 @@ builder.Services.AddDbContext<MyDbContext>(options =>
     )
 );
 builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddSingleton<IPrestamoDraftCache, PrestamoDraftCache>();
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IRepositoryFactory, RepositoryFactory>();
