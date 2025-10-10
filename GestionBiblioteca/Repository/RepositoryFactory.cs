@@ -19,8 +19,8 @@ public class RepositoryFactory: IRepositoryFactory
         return new Repository<T>(_context);
     }
 
-    public async Task<IDbContextTransaction> BeginTransaction()
-    {
-        return await _context.Database.BeginTransactionAsync();
+    public async Task<IDbContextTransaction?> BeginTransaction()
+    {        
+         return await _context.Database.BeginTransactionAsync();
     }
 }

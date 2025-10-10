@@ -39,7 +39,7 @@ public partial class Usuario
     [Required(ErrorMessage = "El número de teléfono es obligatorio")]
     [Phone(ErrorMessage = "El número de teléfono no es válido.")]
     [RegularExpression(@"^\d+$", ErrorMessage = "Solo se permiten dígitos.")]
-    [StringLength(10, ErrorMessage = "El teléfono debe contener entre 8 a 10 caracteres")]
+    [StringLength(10, MinimumLength = 8, ErrorMessage = "El teléfono debe contener entre 8 a 10 caracteres")]
     [Display(Name = "Teléfono")]
     public string? Telefono { get; set; }
 
