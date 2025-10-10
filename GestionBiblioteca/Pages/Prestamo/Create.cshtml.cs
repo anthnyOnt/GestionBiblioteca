@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Ent = GestionBiblioteca.Entities;
@@ -38,8 +39,13 @@ public class Create : PageModel
         _draft = draft;
     }
 
-    [BindProperty(SupportsGet = true)] public string Ci { get; set; } = string.Empty;
-    [BindProperty(SupportsGet = true)] public string Titulo { get; set; } = string.Empty;
+    [BindProperty(SupportsGet = true)]
+    [Required(ErrorMessage = "Introduzca un número de CI")]
+    public string Ci { get; set; } = string.Empty;
+    
+    [BindProperty(SupportsGet = true)] 
+    [Required(ErrorMessage = "Introduzca un título")]
+    public string Titulo { get; set; } = string.Empty;
 
     [BindProperty] public List<LineaInput> Lineas { get; set; } = new();
 

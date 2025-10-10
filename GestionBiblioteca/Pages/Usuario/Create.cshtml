@@ -18,26 +18,36 @@
         <div class="col-md-4">
             <label asp-for="Input.PrimerNombre" class="form-label">Primer nombre</label>
             <input asp-for="Input.PrimerNombre" class="form-control" />
+            <span asp-validation-for="Input.PrimerNombre" class="text-danger"></span>
         </div>
         <div class="col-md-4">
             <label asp-for="Input.SegundoNombre" class="form-label">Segundo nombre</label>
             <input asp-for="Input.SegundoNombre" class="form-control" />
+            <span asp-validation-for="Input.SegundoNombre" class="text-danger"></span>
         </div>
         <div class="col-md-4">
             <label asp-for="Input.PrimerApellido" class="form-label">Primer apellido</label>
             <input asp-for="Input.PrimerApellido" class="form-control" />
+            <span asp-validation-for="Input.PrimerApellido" class="text-danger"></span>
+            
         </div>
         <div class="col-md-4">
             <label asp-for="Input.SegundoApellido" class="form-label">Segundo apellido</label>
             <input asp-for="Input.SegundoApellido" class="form-control" />
+            <span asp-validation-for="Input.SegundoApellido" class="text-danger"></span>
+            
         </div>
         <div class="col-md-4">
             <label asp-for="Input.Telefono" class="form-label">Teléfono</label>
             <input asp-for="Input.Telefono" class="form-control" />
+            <span asp-validation-for="Input.Telefono" class="text-danger"></span>
+            
         </div>
         <div class="col-md-6">
             <label asp-for="Input.Correo" class="form-label">Correo</label>
             <input asp-for="Input.Correo" class="form-control" />
+            <span asp-validation-for="Input.Correo" class="text-danger"></span>
+            
         </div>
     </div>
     <div class="mt-4 d-flex gap-2">

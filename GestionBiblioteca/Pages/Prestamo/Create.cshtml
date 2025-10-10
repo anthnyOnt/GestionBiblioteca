@@ -36,6 +36,7 @@
     <div class="col-md-6">
         <label class="form-label">Título del libro</label>
         <input class="form-control" type="text" name="titulo" value="@Model.Titulo" />
+        <span asp-validation-for="@Model.Titulo"></span>
     </div>
     <div class="col-auto">
         <button type="submit" class="btn btn-outline-primary"><i class="bi bi-search"></i> Buscar</button>
