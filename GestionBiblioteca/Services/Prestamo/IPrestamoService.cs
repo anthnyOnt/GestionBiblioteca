@@ -1,12 +1,14 @@
 // using GestionBiblioteca.Pages.Prestamo;
 
+using GestionBiblioteca.Entities;
+
 namespace GestionBiblioteca.Services.Prestamo;
 
 public interface IPrestamoService
 {
     Task<List<Entities.Prestamo>> ObtenerTodos();
     Task<Entities.Prestamo?> ObtenerPorId(int id);
-    Task Crear(Entities.Prestamo prestamo, List<int> ejemplarIds);
+    Task Crear(int idUsuario, List<PrestamoEjemplar> ejemplares);
 
     // Task Crear(PrestamoCreateViewModel model);
     

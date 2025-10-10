@@ -1,85 +1,149 @@
-@page
+﻿@page
 @model GestionBiblioteca.Pages.Prestamo.Create
+@{
+    ViewData["Title"] = "Nuevo préstamo";
+}
+<div class="page-title">
+    <div class="icon"><i class="bi bi-plus-circle"></i></div>
+    <h1 class="h3 m-0">Nuevo préstamo</h1>
+</div>
 
-<h2>Crear Préstamo</h2>
-
-<!-- Search Usuario -->
-<form method="get">
-    <label>Buscar Usuario por CI:</label>
-    <input type="text" name="ci" value="@Model.Ci" />
-    <button type="submit">Buscar</button>
+<!-- Buscar lector -->
+<form method="get" class="row g-2 align-items-end">
+    <div class="col-md-4">
+        <label class="form-label">CI del lector</label>
+        <input class="form-control" type="text" name="ci" value="@Model.Ci" />
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-outline-primary"><i class="bi bi-search"></i> Buscar</button>
+    </div>
 </form>
 
 @if (Model.UsuarioEncontrado != null)
 {
-    <p><strong>Usuario:</strong> @Model.UsuarioEncontrado.PrimerNombre @Model.UsuarioEncontrado.PrimerApellido (@Model.UsuarioEncontrado.Ci)</p>
+    <div class="alert alert-success mt-3">
+        <i class="bi bi-person-check"></i>
+        <strong>@Model.UsuarioEncontrado.PrimerNombre @Model.UsuarioEncontrado.PrimerApellido</strong>
+        <span class="ms-2 text-muted">CI @Model.UsuarioEncontrado.Ci</span>
+    </div>
 }
 
-<hr />
+<div class="hr"></div>
 
-<!-- Search Libro -->
-<form method="get">
-    <input type="hidden" name="ci" value="@Model.Ci" /> <!-- keeps the CI when searching -->
-    <label>Buscar Libro:</label>
-    <input type="text" name="titulo" value="@Model.Titulo" />
-    <button type="submit">Buscar</button>
+<!-- Buscar libro -->
+<form method="get" class="row g-2 align-items-end">
+    <input type="hidden" name="ci" value="@Model.Ci" />
+    <div class="col-md-6">
+        <label class="form-label">Título del libro</label>
+        <input class="form-control" type="text" name="titulo" value="@Model.Titulo" />
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-outline-primary"><i class="bi bi-search"></i> Buscar</button>
+    </div>
 </form>
 
 @if (Model.LibrosEncontrados?.Any() == true)
 {
-    <h4>Resultados</h4>
-    @foreach (var libro in Model.LibrosEncontrados)
-    {
-        <div>
-            <strong>@libro.Titulo</strong>
-            <ul>
-                @foreach (var ej in libro.Ejemplares)
-                {
-                    <li>
-                         Ejemplar #@ej.Id
-                        @if (Model.EjemplaresSeleccionados.Contains(ej.Id))
+    <div class="mt-3">
+        <h2 class="h6 mb-3">Resultados</h2>
+        @foreach (var libro in Model.LibrosEncontrados)
+        {
+            var disponibles = libro.Ejemplares?.Count(x => x.Disponible == true) ?? 0;
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>@libro.Titulo</strong>
+                            @if (!string.IsNullOrEmpty(libro.Isbn))
+                            {
+                                <span class="text-muted small ms-1">ISBN: @libro.Isbn</span>
+                            }
+                        </div>
+                        <span class="badge text-bg-info" data-anim="pulse">Disponibles: @disponibles</span>
+                    </div>
+
+                    <ul class="list-inline mt-3 mb-0">
+                        @if (libro.Ejemplares != null && libro.Ejemplares.Count > 0)
                         {
-                            <form method="post" asp-page-handler="QuitarEjemplar">
-                                <input type="hidden" name="ejemplarId" value="@ej.Id" />
-                                <input type="hidden" name="ci" value="@Model.Ci" />
-                                <input type="hidden" name="titulo" value="@Model.Titulo" />
-                                <button type="submit">Quitar</button>
-                            </form>
+                            foreach (var ej in libro.Ejemplares)
+                            {
+                                var seleccionado = Model.EjemplaresSeleccionadosConDatos.Any(x => x.Id == ej.Id);
+                                var habil = ej.Disponible == true;
+
+                                <li class="list-inline-item mb-2">
+                                    @if (seleccionado)
+                                    {
+                                        <form method="post" asp-page-handler="QuitarEjemplar" class="d-inline">
+                                            <input type="hidden" name="ejemplarId" value="@ej.Id" />
+                                            <input type="hidden" name="ci" value="@Model.Ci" />
+                                            <input type="hidden" name="titulo" value="@Model.Titulo" />
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                <i class="bi bi-dash-circle"></i> Quitar <span class="badge text-bg-light ms-1">#@ej.Id</span>
+                                            </button>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <form method="post" asp-page-handler="AgregarEjemplar" class="d-inline">
+                                            <input type="hidden" name="ejemplarId" value="@ej.Id" />
+                                            <input type="hidden" name="ci" value="@Model.Ci" />
+                                            <input type="hidden" name="titulo" value="@Model.Titulo" />
+                                            <button type="submit" class="btn btn-sm btn-outline-primary" @(habil ? "" : "disabled")>
+                                                <i class="bi bi-plus-circle"></i> Agregar <span class="badge text-bg-light ms-1">#@ej.Id</span>
+                                            </button>
+                                        </form>
+                                    }
+                                </li>
+                            }
                         }
                         else
                         {
-                            <form method="post" asp-page-handler="AgregarEjemplar">
-                                <input type="hidden" name="ejemplarId" value="@ej.Id" />
-                                <input type="hidden" name="ci" value="@Model.Ci" />
-                                <input type="hidden" name="titulo" value="@Model.Titulo" />
-                                <button type="submit">Agregar</button>
-                            </form>
+                            <li class="list-inline-item text-muted">Sin copias.</li>
                         }
-                    </li>
-                }
-            </ul>
-        </div>
-        <form method="post" aps-page-handler="">
-            
-        </form>
-    }
+                    </ul>
+                </div>
+            </div>
+        }
+    </div>
 }
-
-<hr />
 
 @if (Model.EjemplaresSeleccionadosConDatos.Any())
 {
-    <h4>Ejemplares seleccionados:</h4>
-    <ul>
-        @foreach (var ej in Model.EjemplaresSeleccionadosConDatos)
-        {
-            <li>
-                <strong>@ej.IdLibroNavigation.Titulo</strong>
-                — Ejemplar ID: @ej.Id
-            </li>
-        }
-    </ul>
+    <div class="hr"></div>
+    <h2 class="h6">Configuración del préstamo</h2>
+
     <form method="post">
-        <button type="submit">Guardar prestamo</button>
+        <div class="list-group mb-3">
+            @for (var i = 0; i < Model.EjemplaresSeleccionadosConDatos.Count; i++)
+            {
+                var ej = Model.EjemplaresSeleccionadosConDatos[i];
+                <input type="hidden" name="Lineas[@i].EjemplarId" value="@ej.Id" />
+                <div class="list-group-item d-flex align-items-center justify-content-between">
+                    <div>
+                        <i class="bi bi-book"></i> @ej.IdLibroNavigation?.Titulo
+                        <span class="badge text-bg-light ms-2">Ejemplar #@ej.Id</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <label class="text-muted small mb-0">Fecha límite</label>
+                        <input type="date"
+                               class="form-control"
+                               style="width: 13rem"
+                               name="Lineas[@i].FechaLimite"
+                               value="@(Model.Lineas?.ElementAtOrDefault(i)?.FechaLimite?.ToString("yyyy-MM-dd"))" />
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-check2-circle"></i> Confirmar préstamo
+            </button>
+            <a asp-page="Index" class="btn btn-outline-primary">Cancelar</a>
+        </div>
     </form>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
 }

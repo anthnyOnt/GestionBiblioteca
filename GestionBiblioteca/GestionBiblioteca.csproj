@@ -11,4 +11,16 @@
       <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="9.0.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Pages\Lector\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Usuario\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Usuario\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Usuario\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Usuario\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Usuario\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Prestamo\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Prestamo\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Prestamo\Index.cshtml" />
+    </ItemGroup>
+
 </Project>

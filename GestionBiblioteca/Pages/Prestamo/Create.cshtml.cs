@@ -1,10 +1,13 @@
-using System.Runtime.InteropServices.JavaScript;
-using GestionBiblioteca.Entities;
-using GestionBiblioteca.Pages.Prestamo;
-using GestionBiblioteca.Services.Ejemplar;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Ent = GestionBiblioteca.Entities;
+using IUService = GestionBiblioteca.Services.Usuario.IUsuarioService;
 using GestionBiblioteca.Services.Libro;
+using GestionBiblioteca.Services.Ejemplar;
 using GestionBiblioteca.Services.Prestamo;
-using GestionBiblioteca.Services.Usuario;
+using GestionBiblioteca.Services.PrestamoDraftCache;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -12,108 +15,148 @@ namespace GestionBiblioteca.Pages.Prestamo;
 
 public class Create : PageModel
 {
-    private readonly IUsuarioService _usuarioService;
+    public sealed class LineaInput
+    {
+        public int EjemplarId { get; set; }
+        public DateTime? FechaLimite { get; set; }
+    }
+
+    private readonly IUService _usuarioService;
     private readonly ILibroService _libroService;
     private readonly IEjemplarService _ejemplarService;
     private readonly IPrestamoService _prestamoService;
+    private readonly IPrestamoDraftCache _draft;
 
-    public Create(IUsuarioService usuarioService, ILibroService libroService, IEjemplarService ejemplarService, IPrestamoService prestamoService)
+    public Create(IUService usuarioService, ILibroService libroService,
+                  IEjemplarService ejemplarService, IPrestamoService prestamoService,
+                  IPrestamoDraftCache draft)
     {
         _usuarioService = usuarioService;
         _libroService = libroService;
         _ejemplarService = ejemplarService;
         _prestamoService = prestamoService;
+        _draft = draft;
     }
 
-    [BindProperty(SupportsGet = true)]
-    public string Ci { get; set; } = string.Empty;
+    [BindProperty(SupportsGet = true)] public string Ci { get; set; } = string.Empty;
+    [BindProperty(SupportsGet = true)] public string Titulo { get; set; } = string.Empty;
 
-    [BindProperty(SupportsGet = true)]
-    public string Titulo { get; set; } = string.Empty;
+    [BindProperty] public List<LineaInput> Lineas { get; set; } = new();
 
-    public Entities.Usuario? UsuarioEncontrado { get; set; }
-    public List<Libro>? LibrosEncontrados { get; set; }
+    public Ent.Usuario? UsuarioEncontrado { get; private set; }
+    public List<Ent.Libro>? LibrosEncontrados { get; private set; }
+    public List<Ent.Ejemplar> EjemplaresSeleccionadosConDatos { get; private set; } = new();
 
-    // Temp list to store selected ejemplares
-    public List<int> EjemplaresSeleccionados
-    {
-        get => HttpContext.Session.GetObjectFromJson<List<int>>("EjemplaresSeleccionados") ?? new List<int>();
-        set => HttpContext.Session.SetObjectAsJson("EjemplaresSeleccionados", value);
-    }
-
-    public List<Ejemplar> EjemplaresSeleccionadosConDatos { get; set; } = new();
-    
     public async Task OnGetAsync()
     {
         if (!string.IsNullOrWhiteSpace(Ci))
-        {
             UsuarioEncontrado = await _usuarioService.ObtenerPorCi(Ci);
-        }
 
         if (!string.IsNullOrWhiteSpace(Titulo))
-        {
             LibrosEncontrados = await _libroService.ObtenerEjemplaresPorTitulo(Titulo);
-        }
-        
-        if (EjemplaresSeleccionados.Any())
+
+        var ids = await _draft.GetAllAsync(UsuarioEncontrado?.Id ?? 0);
+
+        if (ids.Count > 0)
         {
-            EjemplaresSeleccionadosConDatos = await _ejemplarService.ObtenerSeleccionados(EjemplaresSeleccionados);
+            EjemplaresSeleccionadosConDatos = await _ejemplarService.ObtenerSeleccionados(ids.ToList());
+
+            if (Lineas.Count == 0)
+            {
+                var porDefecto = DateTime.Today.AddDays(3);
+                Lineas = EjemplaresSeleccionadosConDatos
+                    .Select(e => new LineaInput { EjemplarId = e.Id, FechaLimite = porDefecto })
+                    .ToList();
+            }
+            else
+            {
+                var map = Lineas.ToDictionary(x => x.EjemplarId, x => x.FechaLimite);
+                Lineas = EjemplaresSeleccionadosConDatos
+                    .Select(e => new LineaInput
+                    {
+                        EjemplarId = e.Id,
+                        FechaLimite = map.TryGetValue(e.Id, out var f) ? f : DateTime.Today.AddDays(3)
+                    })
+                    .ToList();
+            }
         }
     }
 
-    public IActionResult OnPostAgregarEjemplar(int ejemplarId)
+    public async Task<IActionResult> OnPostAgregarEjemplar(int ejemplarId, string ci, string titulo)
     {
-        var lista = EjemplaresSeleccionados;
-        if (!lista.Contains(ejemplarId))
-            lista.Add(ejemplarId);
+        Ci = ci; Titulo = titulo;
+        var u = await _usuarioService.ObtenerPorCi(Ci);
+        if (u is null) return RedirectToPage(new { Ci, Titulo });
 
-        EjemplaresSeleccionados = lista;
+        await _draft.AddAsync(u.Id, ejemplarId);
         return RedirectToPage(new { Ci, Titulo });
     }
 
-    public IActionResult OnPostQuitarEjemplar(int ejemplarId)
+    public async Task<IActionResult> OnPostQuitarEjemplar(int ejemplarId, string ci, string titulo)
     {
-        var lista = EjemplaresSeleccionados;
-        lista.Remove(ejemplarId);
+        Ci = ci; Titulo = titulo;
+        var u = await _usuarioService.ObtenerPorCi(Ci);
+        if (u is null) return RedirectToPage(new { Ci, Titulo });
 
-        EjemplaresSeleccionados = lista;
+        await _draft.RemoveAsync(u.Id, ejemplarId);
         return RedirectToPage(new { Ci, Titulo });
     }
 
     public async Task<IActionResult> OnPostAsync()
     {
-        // 1️⃣ Validate that a user was found
-        var usuario = await _usuarioService.ObtenerPorCi(Ci);
-        if (usuario == null)
+        if (string.IsNullOrWhiteSpace(Ci))
         {
-            ModelState.AddModelError("", "El usuario no existe.");
+            ModelState.AddModelError(string.Empty, "Debe ingresar CI.");
+            await OnGetAsync();
+            return Page();
+        }
+        var u = await _usuarioService.ObtenerPorCi(Ci);
+        if (u is null)
+        {
+            ModelState.AddModelError(string.Empty, "El usuario no existe.");
+            await OnGetAsync();
             return Page();
         }
 
-        // 2️⃣ Validate that at least one ejemplar was selected
-        var ejemplarIds = EjemplaresSeleccionados;
-        if (ejemplarIds == null || !ejemplarIds.Any())
+        var ids = await _draft.GetAllAsync(u.Id);
+        if (ids.Count == 0)
         {
-            ModelState.AddModelError("", "Debe seleccionar al menos un ejemplar.");
+            ModelState.AddModelError(string.Empty, "Seleccione al menos un ejemplar.");
+            await OnGetAsync();
             return Page();
         }
 
-        // 3️⃣ Create Prestamo entity
-        var nuevoPrestamo = new Entities.Prestamo
+        // Validaci�n por l�nea
+        if (Lineas == null || Lineas.Count == 0)
         {
-            IdUsuario = usuario.Id,
-            FechaPrestamo = DateTime.Now,
+            ModelState.AddModelError(string.Empty, "Debe definir fechas por ejemplar.");
+            await OnGetAsync();
+            return Page();
+        }
+
+        foreach (var l in Lineas)
+        {
+            if (l.FechaLimite is null || l.FechaLimite.Value.Date < DateTime.Today)
+                ModelState.AddModelError(string.Empty, $"Fecha l�mite inv�lida para ejemplar #{l.EjemplarId}.");
+        }
+        if (!ModelState.IsValid)
+        {
+            await OnGetAsync();
+            return Page();
+        }
+
+        // Construir l�neas reales
+        var lineas = Lineas.Select(l => new Ent.PrestamoEjemplar
+        {
+            IdEjemplar = l.EjemplarId,
+            FechaLimite = l.FechaLimite,
             Activo = 1
-        };
+        }).ToList();
 
-        // 4️⃣ Call service to insert everything in a transaction
-        await _prestamoService.Crear(nuevoPrestamo, ejemplarIds);
+        await _prestamoService.Crear(u.Id, lineas);
+        await _draft.ClearAsync(u.Id);
 
-        // 5️⃣ Clear selected ejemplares (optional)
-        EjemplaresSeleccionados = new List<int>();
-
-        // 6️⃣ Redirect or show confirmation
-        TempData["SuccessMessage"] = "Préstamo registrado correctamente.";
+        TempData["SuccessMessage"] = "Pr�stamo creado correctamente.";
         return RedirectToPage("./Index");
     }
 }
