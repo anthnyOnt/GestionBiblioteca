@@ -37,7 +37,7 @@ public partial class MyDbContext : DbContext
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySql("server=localhost;database=biblioteca_db;user=root;password=root", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.43-mysql"));
+        => optionsBuilder.UseMySql("server=localhost;database=biblioteca_db;user=root;password=password", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.43-mysql"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -133,8 +133,13 @@ public partial class MyDbContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Activo).HasColumnName("activo");
+            entity.Property(e => e.Descripcion).HasColumnName("descripcion");
+            entity.Property(e => e.Observaciones).HasColumnName("observaciones");
             entity.Property(e => e.CreadoPor).HasColumnName("creado_por");
             entity.Property(e => e.Disponible).HasColumnName("disponible");
+            entity.Property(e => e.FechaAdquisicion)
+                .HasColumnType("timestamp")
+                .HasColumnName("fecha_adquisicion");
             entity.Property(e => e.FechaCreacion)
                 .HasColumnType("timestamp")
                 .HasColumnName("fecha_creacion");
@@ -206,6 +211,14 @@ public partial class MyDbContext : DbContext
             entity.Property(e => e.Titulo)
                 .HasMaxLength(50)
                 .HasColumnName("titulo");
+            entity.Property(e => e.Activo).HasColumnName("activo");
+            entity.Property(e => e.CreadoPor).HasColumnName("creado_por");
+            entity.Property(e => e.FechaCreacion)
+                .HasColumnType("timestamp")
+                .HasColumnName("fecha_creacion");
+            entity.Property(e => e.UltimaActualizacion)
+                .HasColumnType("timestamp")
+                .HasColumnName("ultima_actualizacion");
 
             entity.HasOne(d => d.IdEditorialNavigation).WithMany(p => p.Libros)
                 .HasForeignKey(d => d.IdEditorial)

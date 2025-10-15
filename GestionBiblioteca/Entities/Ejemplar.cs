@@ -10,6 +10,12 @@ public partial class Ejemplar
     public int? IdLibro { get; set; }
 
     public bool? Disponible { get; set; }
+    
+    public string? Descripcion { get; set; }
+    
+    public string? Observaciones { get; set; }
+    
+    public DateTime FechaAdquisicion { get; set; }
 
     public int? CreadoPor { get; set; }
 

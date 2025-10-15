@@ -28,4 +28,12 @@ public partial class Libro
     public virtual ICollection<Autor> IdAutores { get; set; } = new List<Autor>();
 
     public virtual ICollection<Categoria> IdCategoria { get; set; } = new List<Categoria>();
+    
+    public int? CreadoPor { get; set; }
+
+    public DateTime? FechaCreacion { get; set; }
+
+    public DateTime? UltimaActualizacion { get; set; }
+
+    public int? Activo { get; set; }
 }
