@@ -195,8 +195,9 @@ public partial class MyDbContext : DbContext
             entity.Property(e => e.Edicion)
                 .HasMaxLength(20)
                 .HasColumnName("edicion");
+            // Use DATETIME for publication date so older dates (e.g. 1954) are supported
             entity.Property(e => e.FechaPublicacion)
-                .HasColumnType("timestamp")
+                .HasColumnType("datetime")
                 .HasColumnName("fecha_publicacion");
             entity.Property(e => e.IdEditorial).HasColumnName("id_editorial");
             entity.Property(e => e.Idioma)

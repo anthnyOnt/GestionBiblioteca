@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 using GestionBibliotecaTests.Helpers;
+using Microsoft.AspNetCore.Http;
 
 namespace GestionBibliotecaTests
 {
@@ -16,17 +17,19 @@ namespace GestionBibliotecaTests
         private readonly Mock<IRepositoryFactory> _mockRepoFactory;
         private readonly Mock<IRepository<Ejemplar>> _mockEjemplarRepo;
         private readonly EjemplarService _ejemplarService;
+        private readonly Mock<IHttpContextAccessor> _mockHttpContext;
 
         public EjemplarServiceTest()
         {
             _mockRepoFactory = new Mock<IRepositoryFactory>();
             _mockEjemplarRepo = new Mock<IRepository<Ejemplar>>();
+            _mockHttpContext = new Mock<IHttpContextAccessor>();
 
             // Configuramos que el factory siempre devuelva el repo mock
             _mockRepoFactory.Setup(f => f.ObtenerRepository<Ejemplar>())
                 .Returns(_mockEjemplarRepo.Object);
 
-            _ejemplarService = new EjemplarService(_mockRepoFactory.Object);
+            _ejemplarService = new EjemplarService(_mockRepoFactory.Object,  _mockHttpContext.Object);
         }
 
         // ObtenerDisponibles

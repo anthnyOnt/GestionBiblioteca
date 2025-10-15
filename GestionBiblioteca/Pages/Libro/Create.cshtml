@@ -1,0 +1,57 @@
+@page
+@model GestionBiblioteca.Pages.Libro.Create
+@{
+    ViewData["Title"] = "Nuevo libro";
+}
+<div class="page-title">
+    <div class="icon"><i class="bi bi-book"></i></div>
+    <h1 class="h3 m-0">Nuevo libro</h1>
+</div>
+
+<form method="post" class="mt-3">
+    <div class="row g-3">
+        <div class="col-md-6">
+            <label asp-for="Input.Titulo" class="form-label">Título</label>
+            <input asp-for="Input.Titulo" class="form-control" />
+            <span asp-validation-for="Input.Titulo" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+            <label asp-for="Input.Isbn" class="form-label">ISBN</label>
+            <input asp-for="Input.Isbn" class="form-control" />
+            <span asp-validation-for="Input.Isbn" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label asp-for="Input.Idioma" class="form-label">Idioma</label>
+            <input asp-for="Input.Idioma" class="form-control" />
+            <span asp-validation-for="Input.Idioma" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label asp-for="Input.Edicion" class="form-label">Edición</label>
+            <input asp-for="Input.Edicion" class="form-control" />
+            <span asp-validation-for="Input.Edicion" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label asp-for="Input.FechaPublicacion" class="form-label">Fecha publicación</label>
+            <input asp-for="Input.FechaPublicacion" class="form-control" type="date" />
+            <span asp-validation-for="Input.FechaPublicacion" class="text-danger"></span>
+        </div>
+
+        <div class="col-12">
+            <label asp-for="Input.Sinopsis" class="form-label">Sinopsis</label>
+            <textarea asp-for="Input.Sinopsis" class="form-control" rows="4"></textarea>
+            <span asp-validation-for="Input.Sinopsis" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="mt-4 d-flex gap-2">
+        <button type="submit" class="btn btn-primary"><i class="bi bi-check2-circle"></i> Guardar</button>
+        <a asp-page="Index" class="btn btn-outline-primary">Cancelar</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
