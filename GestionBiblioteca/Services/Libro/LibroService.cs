@@ -55,7 +55,14 @@ public class LibroService: ILibroService
 
     public async Task<Entities.Libro?> ObtenerPorId(int id)
     {
-        return await _repositoryFactory.ObtenerRepository<Entities.Libro>().ObtenerPorId(id);
+        // Load related navigation properties so pages can display authors, categories and ejemplares
+        return await _repositoryFactory.ObtenerRepository<Entities.Libro>()
+            .ObtenerPorConsulta()
+            .Include(l => l.IdEditorialNavigation)
+            .Include(l => l.IdAutores)
+            .Include(l => l.IdCategoria)
+            .Include(l => l.Ejemplares)
+            .FirstOrDefaultAsync(l => l.Id == id);
     }
 
     public async Task<List<Entities.Libro>> ObtenerEjemplaresPorTitulo(string titulo)
@@ -76,9 +83,9 @@ public class LibroService: ILibroService
 
     public async Task<Entities.Libro> Crear(Entities.Libro libro)
     {
-        // Libro.Activo = 1;
-        // Libro.CreadoPor = ObtenerIdSesion();-
-        // Libro.FechaCreacion = DateTime.Now;
+        libro.Activo = 1;
+        libro.CreadoPor = ObtenerIdSesion();
+        libro.FechaCreacion = DateTime.Now;
  
         await _repositoryFactory.ObtenerRepository<Entities.Libro>().Agregar(libro);
         return libro;
@@ -92,12 +99,10 @@ public class LibroService: ILibroService
         if (existing == null)
             throw new Exception("Libro not found");
 
-        // Libro.FechaCreacion = existing.FechaCreacion;
-        // Libro.CreadoPor = existing.CreadoPor;
-        // Libro.Activo = existing.Activo;
-        // Libro.Rol = existing.Rol;
-        //
-        // Libro.UltimaActualizacion = DateTime.Now;
+        libro.FechaCreacion = existing.FechaCreacion;
+        libro.CreadoPor = existing.CreadoPor;
+        libro.Activo = existing.Activo;
+        libro.UltimaActualizacion = DateTime.Now;
         await repo.Actualizar(libro);
         return libro;
     }
@@ -107,7 +112,7 @@ public class LibroService: ILibroService
         Entities.Libro libro =  await _repositoryFactory.ObtenerRepository<Entities.Libro>().ObtenerPorId(id);
         if (libro != null)
         {
-            // libro.Activo = 0;
+            libro.Activo = 0;
             await _repositoryFactory.ObtenerRepository<Entities.Libro>().Actualizar(libro);
             return true;
         }

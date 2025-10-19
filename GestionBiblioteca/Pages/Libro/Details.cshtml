@@ -1,0 +1,86 @@
+@page "{id:int}"
+@model GestionBiblioteca.Pages.Libro.Details
+@{
+    ViewData["Title"] = "Detalle libro";
+}
+<div class="page-title">
+    <div class="icon"><i class="bi bi-eye"></i></div>
+    <h1 class="h3 m-0">Detalle libro</h1>
+</div>
+
+<div class="mt-3">
+    <dl class="row">
+        <dt class="col-sm-3">Título</dt>
+        <dd class="col-sm-9">@Model.Input?.Titulo</dd>
+
+        <dt class="col-sm-3">ISBN</dt>
+        <dd class="col-sm-9">@Model.Input?.Isbn</dd>
+
+        <dt class="col-sm-3">Edición</dt>
+        <dd class="col-sm-9">@Model.Input?.Edicion</dd>
+
+        <dt class="col-sm-3">Idioma</dt>
+        <dd class="col-sm-9">@Model.Input?.Idioma</dd>
+
+        <dt class="col-sm-3">Fecha publicación</dt>
+        <dd class="col-sm-9">@(Model.Input?.FechaPublicacion?.ToString("yyyy-MM-dd") ?? "-")</dd>
+
+        <dt class="col-sm-3">Sinopsis</dt>
+        <dd class="col-sm-9">@Model.Input?.Sinopsis</dd>
+    </dl>
+
+        @if (Model.Input != null)
+        {
+            <hr />
+            <h5>Autores</h5>
+            @if (Model.Input.IdAutores != null && Model.Input.IdAutores.Count > 0)
+            {
+                <ul>
+                    @foreach (var a in Model.Input.IdAutores)
+                    {
+                        <li>@a.Nombre @a.Apellido</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <div class="text-muted">Sin autores asignados.</div>
+            }
+
+            <h5 class="mt-3">Categorías</h5>
+            @if (Model.Input.IdCategoria != null && Model.Input.IdCategoria.Count > 0)
+            {
+                <ul>
+                    @foreach (var c in Model.Input.IdCategoria)
+                    {
+                        <li>@c.Nombre</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <div class="text-muted">Sin categorías asignadas.</div>
+            }
+
+            <h5 class="mt-3">Ejemplares</h5>
+            @if (Model.Input.Ejemplares != null && Model.Input.Ejemplares.Count > 0)
+            {
+                <div>Disponibles: <strong>@Model.Input.Ejemplares.Count(e => e.Disponible == true)</strong></div>
+                <ul>
+                    @foreach (var e in Model.Input.Ejemplares)
+                    {
+                        <li>@e.Descripcion - @(e.Disponible == true ? "Disponible" : "No disponible")</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <div class="text-muted">No hay ejemplares registrados para este libro.</div>
+            }
+
+            <div class="d-flex gap-2 mt-3">
+                <a asp-page="Edit" asp-route-id="@Model.Input.Id" class="btn btn-primary">Editar</a>
+                <a asp-page="Index" class="btn btn-outline-primary">Volver</a>
+            </div>
+        }
+</div>
