@@ -10,18 +10,24 @@ public partial class Ejemplar
     public int Id { get; set; }
 
     [Required(ErrorMessage = "Debe seleccionar un libro")]
+    [Display(Name = "Libro")]
     public int? IdLibro { get; set; }
 
+    [Display(Name = "Disponible")]
     public bool? Disponible { get; set; }
     
-    [StringLength(200, ErrorMessage = "La descripción no puede superar 200 caracteres")]
+    [Required(ErrorMessage = "La descripción es obligatoria")]
+    [StringLength(200, MinimumLength = 3, ErrorMessage = "La descripción debe contener entre 3 y 200 caracteres")]
+    [Display(Name = "Descripción")]
     public string? Descripcion { get; set; }
     
     [StringLength(300, ErrorMessage = "Las observaciones no pueden superar 300 caracteres")]
+    [Display(Name = "Observaciones")]
     public string? Observaciones { get; set; }
     
     [Required(ErrorMessage = "La fecha de adquisición es obligatoria")]
     [DataType(DataType.Date)]
+    [Display(Name = "Fecha de adquisición")]
     public DateTime FechaAdquisicion { get; set; }
 
     public int? CreadoPor { get; set; }

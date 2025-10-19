@@ -33,6 +33,18 @@ public class Edit : PageModel
 
     public async Task<IActionResult> OnPostAsync()
     {
+        // Custom validation for FechaAdquisicion
+        if (Input.FechaAdquisicion > DateTime.Now)
+        {
+            ModelState.AddModelError("Input.FechaAdquisicion", "La fecha de adquisición no puede ser futura");
+        }
+
+        // Validate that the date is reasonable (not too old, e.g., before year 1900)
+        if (Input.FechaAdquisicion.Year < 1900)
+        {
+            ModelState.AddModelError("Input.FechaAdquisicion", "La fecha de adquisición debe ser posterior al año 1900");
+        }
+
         if (!ModelState.IsValid)
         {
             var libros = await _libroSvc.ObtenerTodos();
