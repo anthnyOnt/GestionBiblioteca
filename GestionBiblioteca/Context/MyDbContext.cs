@@ -37,7 +37,7 @@ public partial class MyDbContext : DbContext
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySql("server=localhost;database=biblioteca_db;user=root;password=password", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.43-mysql"));
+        => optionsBuilder.UseMySql("server=localhost;database=biblioteca_db;user=root;password=root", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.43-mysql"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -195,7 +195,6 @@ public partial class MyDbContext : DbContext
             entity.Property(e => e.Edicion)
                 .HasMaxLength(20)
                 .HasColumnName("edicion");
-            // Use DATETIME for publication date so older dates (e.g. 1954) are supported
             entity.Property(e => e.FechaPublicacion)
                 .HasColumnType("datetime")
                 .HasColumnName("fecha_publicacion");

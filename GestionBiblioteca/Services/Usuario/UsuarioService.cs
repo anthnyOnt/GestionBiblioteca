@@ -9,7 +9,6 @@ public class UsuarioService: IUsuarioService
     private readonly IRepositoryFactory _repositoryFactory;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly PasswordHasher<Entities.Usuario> _hasher;
-    //password hasher
     public UsuarioService(IRepositoryFactory repositoryFactory, IHttpContextAccessor httpContextAccessor)
     {
         _repositoryFactory = repositoryFactory;
@@ -30,19 +29,6 @@ public class UsuarioService: IUsuarioService
 
         return 1;
     }
-
-    // public async Task<List<Entities.Usuario>> ObtenerTodos()
-    // {
-    //     var usuarios = await _repositoryFactory.ObtenerRepository<Entities.Usuario>().ObtenerTodos();
-    //     List<Entities.Usuario> lista = new List<Entities.Usuario>();
-    //     foreach (var usuario in usuarios)
-    //     {
-    //         if (usuario.Activo == 1)
-    //             lista.Add(usuario);
-    //     }
-    //
-    //     return lista;
-    // }
     
     public async Task<List<Entities.Usuario>> ObtenerTodos()
     {

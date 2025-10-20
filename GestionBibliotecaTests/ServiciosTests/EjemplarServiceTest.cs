@@ -25,7 +25,6 @@ namespace GestionBibliotecaTests
             _mockEjemplarRepo = new Mock<IRepository<Ejemplar>>();
             _mockHttpContext = new Mock<IHttpContextAccessor>();
 
-            // Configuramos que el factory siempre devuelva el repo mock
             _mockRepoFactory.Setup(f => f.ObtenerRepository<Ejemplar>())
                 .Returns(_mockEjemplarRepo.Object);
 
@@ -55,8 +54,8 @@ namespace GestionBibliotecaTests
             Assert.Equal(2, result.Count);
             Assert.Contains(result, e => e.Id == 1);
             Assert.Contains(result, e => e.Id == 4);
-            Assert.DoesNotContain(result, e => e.Id == 2); // No disponible
-            Assert.DoesNotContain(result, e => e.Id == 3); // No activo
+            Assert.DoesNotContain(result, e => e.Id == 2);
+            Assert.DoesNotContain(result, e => e.Id == 3);
         }
 
         // ObtenerSeleccionados

@@ -132,7 +132,6 @@ public class Create : PageModel
             return Page();
         }
 
-        // Validaci�n por l�nea
         if (Lineas == null || Lineas.Count == 0)
         {
             ModelState.AddModelError(string.Empty, "Debe definir fechas por ejemplar.");
@@ -151,7 +150,6 @@ public class Create : PageModel
             return Page();
         }
 
-        // Construir l�neas reales
         var lineas = Lineas.Select(l => new Ent.PrestamoEjemplar
         {
             IdEjemplar = l.EjemplarId,

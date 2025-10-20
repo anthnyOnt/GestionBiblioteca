@@ -56,7 +56,6 @@ public class Repository<T>: IRepository<T> where T: class
     }
 
     
-    // Se usa "Update" en lugar de "Remove" Para aplicar la eliminacion logica (solo se cambia el atributo activo)
     public async Task Eliminar(T entidad)
     {
         _dbSet.Remove(entidad);

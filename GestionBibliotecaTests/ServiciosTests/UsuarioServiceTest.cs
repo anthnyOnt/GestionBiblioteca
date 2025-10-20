@@ -23,7 +23,6 @@ namespace GestionBibliotecaTests
             _mockUsuarioRepo = new Mock<IRepository<Usuario>>();
             _mockHttpContext = new Mock<IHttpContextAccessor>();
 
-            // Configuramos que el factory siempre devuelva el repo mock
             _mockRepoFactory.Setup(f => f.ObtenerRepository<Usuario>())
                 .Returns(_mockUsuarioRepo.Object);
 
@@ -137,7 +136,7 @@ namespace GestionBibliotecaTests
             var result = await _usuarioService.Crear(usuario);
 
             Assert.NotNull(result.Contrasenia);
-            Assert.NotEqual("1234", result.Contrasenia); // se debe hashear
+            Assert.NotEqual("1234", result.Contrasenia);
             Assert.Equal(1, result.Activo);
             _mockUsuarioRepo.Verify(r => r.Agregar(It.IsAny<Usuario>()), Times.Once);
         }

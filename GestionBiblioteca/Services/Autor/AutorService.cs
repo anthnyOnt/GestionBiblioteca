@@ -31,23 +31,9 @@ public class AutorService: IAutorService
         return 1;
     }
 
-    // public async Task<List<Entities.Autor>> ObtenerTodos()
-    // {
-    //     var Autors = await _repositoryFactory.ObtenerRepository<Entities.Autor>().ObtenerTodos();
-    //     List<Entities.Autor> lista = new List<Entities.Autor>();
-    //     foreach (var Autor in Autors)
-    //     {
-    //         if (Autor.Activo == 1)
-    //             lista.Add(Autor);
-    //     }
-    //
-    //     return lista;
-    // }
-    
     public async Task<List<Entities.Autor>> ObtenerTodos()
     {
         return await _repositoryFactory.ObtenerRepository<Entities.Autor>().ObtenerPorConsulta()
-            // .Where(u => u.Activo.Equals(1))
             .ToListAsync();
     }
 
@@ -58,9 +44,6 @@ public class AutorService: IAutorService
 
     public async Task<Entities.Autor> Crear(Entities.Autor autor)
     {
-        // Autor.Activo = 1;
-        // Autor.CreadoPor = ObtenerIdSesion();
-        // Autor.FechaCreacion = DateTime.Now;
         await _repositoryFactory.ObtenerRepository<Entities.Autor>().Agregar(autor);
         return autor;
     }
@@ -73,12 +56,6 @@ public class AutorService: IAutorService
         if (existing == null)
             throw new Exception("Autor not found");
 
-        // Autor.FechaCreacion = existing.FechaCreacion;
-        // Autor.CreadoPor = existing.CreadoPor;
-        // Autor.Activo = existing.Activo;
-        // Autor.Rol = existing.Rol;
-        //
-        // Autor.UltimaActualizacion = DateTime.Now;
         await repo.Actualizar(autor);
         return autor;
     }
@@ -88,7 +65,6 @@ public class AutorService: IAutorService
         Entities.Autor autor =  await _repositoryFactory.ObtenerRepository<Entities.Autor>().ObtenerPorId(id);
         if (autor != null)
         {
-            // Autor.Activo = 0;
             await _repositoryFactory.ObtenerRepository<Entities.Autor>().Actualizar(autor);
             return true;
         }

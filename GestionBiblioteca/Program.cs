@@ -12,11 +12,10 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Register MyDbContext with DI
 builder.Services.AddDbContext<MyDbContext>(options =>
     options.UseMySql(
         builder.Configuration.GetConnectionString("DefaultConnection"),
-        new MySqlServerVersion(new Version(8, 0, 43)) //  with your MySQL version
+        new MySqlServerVersion(new Version(8, 0, 43))
     )
 );
 builder.Services.AddHttpContextAccessor();
@@ -37,18 +36,15 @@ builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 
 builder.Services.AddSession();
 
-// Add services to the container.
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
 }
 
-//Enable session
 app.UseSession();
 
 

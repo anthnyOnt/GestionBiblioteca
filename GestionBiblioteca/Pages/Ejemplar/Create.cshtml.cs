@@ -26,13 +26,11 @@ public class Create : PageModel
 
     public async Task<IActionResult> OnPostAsync()
     {
-        // Custom validation for FechaAdquisicion
         if (Input.FechaAdquisicion > DateTime.Now)
         {
             ModelState.AddModelError("Input.FechaAdquisicion", "La fecha de adquisición no puede ser futura");
         }
 
-        // Validate that the date is reasonable (not too old, e.g., before year 1900)
         if (Input.FechaAdquisicion.Year < 1900)
         {
             ModelState.AddModelError("Input.FechaAdquisicion", "La fecha de adquisición debe ser posterior al año 1900");
@@ -48,7 +46,7 @@ public class Create : PageModel
             Input.Observaciones = "Sin observaciones";
 
         Input.FechaCreacion = DateTime.Now;
-        Input.CreadoPor = 1; // will be replaced by service's ObtenerIdSesion
+        Input.CreadoPor = 1;
         Input.Activo = 1;
 
         await _svc.Crear(Input);

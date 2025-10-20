@@ -25,19 +25,16 @@ public class Edit : PageModel
 
     public async Task<IActionResult> OnPostAsync()
     {
-        // Validate required fields
         if (string.IsNullOrWhiteSpace(Input.Titulo))
         {
             ModelState.AddModelError("Input.Titulo", "El título es obligatorio");
         }
 
-        // Custom validation for FechaPublicacion
         if (Input.FechaPublicacion.HasValue && Input.FechaPublicacion.Value > DateTime.Now)
         {
             ModelState.AddModelError("Input.FechaPublicacion", "La fecha de publicación no puede ser futura");
         }
 
-        // Validate ISBN uniqueness (excluding current book, only if ISBN is provided)
         if (!string.IsNullOrWhiteSpace(Input.Isbn))
         {
             var libroExistente = await _svc.ObtenerTodos();

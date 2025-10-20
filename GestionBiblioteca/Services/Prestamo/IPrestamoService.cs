@@ -1,5 +1,3 @@
-// using GestionBiblioteca.Pages.Prestamo;
-
 using GestionBiblioteca.Entities;
 
 namespace GestionBiblioteca.Services.Prestamo;
@@ -10,8 +8,4 @@ public interface IPrestamoService
     Task<Entities.Prestamo?> ObtenerPorId(int id);
     Task Crear(int idUsuario, List<PrestamoEjemplar> ejemplares);
 
-    // Task Crear(PrestamoCreateViewModel model);
-    
-    // Task<Entities.Prestamo> PrestarEjemplares(List<Entities.PrestamoEjemplar> ejemplaresPrestados);
-    // Task<Entities.PrestamoEjemplar> DevolverEjemplar();
 }

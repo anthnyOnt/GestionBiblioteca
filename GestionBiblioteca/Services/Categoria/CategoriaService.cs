@@ -9,7 +9,6 @@ public class CategoriaService: ICategoriaService
     private readonly IRepositoryFactory _repositoryFactory;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly PasswordHasher<Entities.Categoria> _hasher;
-    //password hasher
     public CategoriaService(IRepositoryFactory repositoryFactory, IHttpContextAccessor httpContextAccessor)
     {
         _repositoryFactory = repositoryFactory;
@@ -31,23 +30,9 @@ public class CategoriaService: ICategoriaService
         return 1;
     }
 
-    // public async Task<List<Entities.Categoria>> ObtenerTodos()
-    // {
-    //     var Categorias = await _repositoryFactory.ObtenerRepository<Entities.Categoria>().ObtenerTodos();
-    //     List<Entities.Categoria> lista = new List<Entities.Categoria>();
-    //     foreach (var Categoria in Categorias)
-    //     {
-    //         if (Categoria.Activo == 1)
-    //             lista.Add(Categoria);
-    //     }
-    //
-    //     return lista;
-    // }
-    
     public async Task<List<Entities.Categoria>> ObtenerTodos()
     {
         return await _repositoryFactory.ObtenerRepository<Entities.Categoria>().ObtenerPorConsulta()
-            // .Where(u => u.Activo.Equals(1))
             .ToListAsync();
     }
 
@@ -58,9 +43,6 @@ public class CategoriaService: ICategoriaService
 
     public async Task<Entities.Categoria> Crear(Entities.Categoria categoria)
     {
-        // Categoria.Activo = 1;
-        // Categoria.CreadoPor = ObtenerIdSesion();
-        // Categoria.FechaCreacion = DateTime.Now;
         await _repositoryFactory.ObtenerRepository<Entities.Categoria>().Agregar(categoria);
         return categoria;
     }
@@ -73,12 +55,6 @@ public class CategoriaService: ICategoriaService
         if (existing == null)
             throw new Exception("Categoria not found");
 
-        // Categoria.FechaCreacion = existing.FechaCreacion;
-        // Categoria.CreadoPor = existing.CreadoPor;
-        // Categoria.Activo = existing.Activo;
-        // Categoria.Rol = existing.Rol;
-        //
-        // Categoria.UltimaActualizacion = DateTime.Now;
         await repo.Actualizar(categoria);
         return categoria;
     }
@@ -88,7 +64,6 @@ public class CategoriaService: ICategoriaService
         Entities.Categoria categoria =  await _repositoryFactory.ObtenerRepository<Entities.Categoria>().ObtenerPorId(id);
         if (categoria != null)
         {
-            // Categoria.Activo = 0;
             await _repositoryFactory.ObtenerRepository<Entities.Categoria>().Actualizar(categoria);
             return true;
         }
