@@ -26,7 +26,6 @@ namespace GestionBibliotecaTests
             _mockEjemplarRepo = new Mock<IRepository<Ejemplar>>();
             _mockTransaction = new Mock<IDbContextTransaction>();
 
-            // Configuramos que el factory devuelva los repos mocks según el tipo
             _mockRepoFactory.Setup(f => f.ObtenerRepository<Prestamo>())
                 .Returns(_mockPrestamoRepo.Object);
             
@@ -155,7 +154,6 @@ namespace GestionBibliotecaTests
                 pe.FechaLimite == ejemplares[1].FechaLimite &&
                 pe.Activo == 1)), Times.Once);
             
-            // Verificar que los ejemplares se marcaron como no disponibles
             _mockEjemplarRepo.Verify(r => r.Actualizar(It.Is<Ejemplar>(e => e.Id == 1 && e.Disponible == false)), Times.Once);
             _mockEjemplarRepo.Verify(r => r.Actualizar(It.Is<Ejemplar>(e => e.Id == 2 && e.Disponible == false)), Times.Once);
             

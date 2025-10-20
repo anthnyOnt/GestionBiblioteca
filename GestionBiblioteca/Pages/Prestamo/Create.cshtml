@@ -8,8 +8,6 @@
     <h1 class="h3 m-0">Nuevo préstamo</h1>
 </div>
 
-<!-- Buscar lector -->
-<div asp-validation-summary="All" class="text-danger mb-2"></div>
 <form method="get" class="row g-2 align-items-end">
     <div class="col-md-4">
         <label class="form-label" asp-for="Ci">CI del lector</label>
@@ -32,7 +30,6 @@
 
 <div class="hr"></div>
 
-<!-- Buscar libro -->
 <form method="get" class="row g-2 align-items-end">
     <input type="hidden" name="ci" value="@Model.Ci" />
     <div class="col-md-6">

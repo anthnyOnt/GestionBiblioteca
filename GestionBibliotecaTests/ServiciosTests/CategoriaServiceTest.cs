@@ -23,7 +23,6 @@ namespace GestionBibliotecaTests
             _mockCategoriaRepo = new Mock<IRepository<Categoria>>();
             _mockHttpContext = new Mock<IHttpContextAccessor>();
 
-            // Configuramos que el factory siempre devuelva el repo mock
             _mockRepoFactory.Setup(f => f.ObtenerRepository<Categoria>())
                 .Returns(_mockCategoriaRepo.Object);
 
@@ -57,7 +56,7 @@ namespace GestionBibliotecaTests
                 .GetMethod("ObtenerIdSesion", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
                 .Invoke(_categoriaService, null);
 
-            Assert.Equal(1, result); // valor por defecto
+            Assert.Equal(1, result);
         }
 
         [Fact]

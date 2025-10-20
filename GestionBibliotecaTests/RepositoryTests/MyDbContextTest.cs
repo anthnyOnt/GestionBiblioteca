@@ -10,7 +10,6 @@ namespace GestionBiblioteca.Tests
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            // No configurar MySQL aquí — solo usaremos InMemory
         }
     }
 }

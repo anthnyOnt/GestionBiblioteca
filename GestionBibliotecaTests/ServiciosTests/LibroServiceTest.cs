@@ -23,7 +23,6 @@ namespace GestionBibliotecaTests
             _mockLibroRepo = new Mock<IRepository<Libro>>();
             _mockHttpContext = new Mock<IHttpContextAccessor>();
 
-            // Configuramos que el factory siempre devuelva el repo mock
             _mockRepoFactory.Setup(f => f.ObtenerRepository<Libro>())
                 .Returns(_mockLibroRepo.Object);
 
@@ -57,7 +56,7 @@ namespace GestionBibliotecaTests
                 .GetMethod("ObtenerIdSesion", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
                 .Invoke(_libroService, null);
 
-            Assert.Equal(1, result); // valor por defecto
+            Assert.Equal(1, result);
         }
 
         [Fact]
@@ -164,13 +163,11 @@ namespace GestionBibliotecaTests
             // Assert
             Assert.Equal(2, result.Count);
             
-            // Encontrar el libro con ID 1 en los resultados y verificar sus ejemplares
             var libro1 = result.FirstOrDefault(l => l.Id == 1);
             Assert.NotNull(libro1);
             Assert.Equal(2, libro1.Ejemplares.Count);
             Assert.All(libro1.Ejemplares, e => Assert.True(e.Disponible));
             
-            // Encontrar el libro con ID 2 en los resultados y verificar que no tiene ejemplares disponibles
             var libro2 = result.FirstOrDefault(l => l.Id == 2);
             Assert.NotNull(libro2);
             Assert.Empty(libro2.Ejemplares);

@@ -1,6 +1,5 @@
 using GestionBiblioteca.Repository;
 using Microsoft.AspNetCore.Identity;
-// using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 
 namespace GestionBiblioteca.Services.Libro;
@@ -10,7 +9,6 @@ public class LibroService: ILibroService
     private readonly IRepositoryFactory _repositoryFactory;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly PasswordHasher<Entities.Libro> _hasher;
-    //password hasher
     public LibroService(IRepositoryFactory repositoryFactory, IHttpContextAccessor httpContextAccessor)
     {
         _repositoryFactory = repositoryFactory;
@@ -31,31 +29,16 @@ public class LibroService: ILibroService
 
         return 1;
     }
-
-    // public async Task<List<Entities.Libro>> ObtenerTodos()
-    // {
-    //     var Libros = await _repositoryFactory.ObtenerRepository<Entities.Libro>().ObtenerTodos();
-    //     List<Entities.Libro> lista = new List<Entities.Libro>();
-    //     foreach (var Libro in Libros)
-    //     {
-    //         if (Libro.Activo == 1)
-    //             lista.Add(Libro);
-    //     }
-    //
-    //     return lista;
-    // }
     
     public async Task<List<Entities.Libro>> ObtenerTodos()
     {
         
         return await _repositoryFactory.ObtenerRepository<Entities.Libro>().ObtenerPorConsulta()
-            // .Where(u => u.Activo.Equals(1))
             .ToListAsync();
     }
 
     public async Task<Entities.Libro?> ObtenerPorId(int id)
     {
-        // Load related navigation properties so pages can display authors, categories and ejemplares
         return await _repositoryFactory.ObtenerRepository<Entities.Libro>()
             .ObtenerPorConsulta()
             .Include(l => l.IdEditorialNavigation)
