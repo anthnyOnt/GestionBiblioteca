@@ -12,43 +12,43 @@
     <div class="row g-3">
         <div class="col-md-6">
             <label asp-for="Input.Titulo" class="form-label">Título</label>
-            <input asp-for="Input.Titulo" class="form-control" />
-            <span asp-validation-for="Input.Titulo" class="text-danger"></span>
+            <input name="Input.Titulo" id="Input_Titulo" class="form-control" value="@Model.Input.Titulo" data-testid="titulo" />
+            <span asp-validation-for="Input.Titulo" class="text-danger" data-testid="titulo-error"></span>
         </div>
         <div class="col-md-6">
             <label asp-for="Input.Isbn" class="form-label">ISBN</label>
-            <input asp-for="Input.Isbn" class="form-control" />
-            <span asp-validation-for="Input.Isbn" class="text-danger"></span>
+            <input name="Input.Isbn" id="Input_Isbn" class="form-control" value="@Model.Input.Isbn" data-testid="isbn" />
+            <span asp-validation-for="Input.Isbn" class="text-danger" data-testid="isbn-error"></span>
         </div>
 
         <div class="col-md-4">
             <label asp-for="Input.Idioma" class="form-label">Idioma</label>
-            <input asp-for="Input.Idioma" class="form-control" />
-            <span asp-validation-for="Input.Idioma" class="text-danger"></span>
+            <input name="Input.Idioma" id="Input_Idioma" class="form-control" value="@Model.Input.Idioma" data-testid="idioma" />
+            <span asp-validation-for="Input.Idioma" class="text-danger" data-testid="idioma-error"></span>
         </div>
 
         <div class="col-md-4">
             <label asp-for="Input.Edicion" class="form-label">Edición</label>
-            <input asp-for="Input.Edicion" class="form-control" />
-            <span asp-validation-for="Input.Edicion" class="text-danger"></span>
+            <input name="Input.Edicion" id="Input_Edicion" class="form-control" value="@Model.Input.Edicion" data-testid="edicion" />
+            <span asp-validation-for="Input.Edicion" class="text-danger" data-testid="edicion-error"></span>
         </div>
 
         <div class="col-md-4">
             <label asp-for="Input.FechaPublicacion" class="form-label">Fecha publicación</label>
-            <input asp-for="Input.FechaPublicacion" class="form-control" type="date" />
-            <span asp-validation-for="Input.FechaPublicacion" class="text-danger"></span>
+            <input name="Input.FechaPublicacion" id="Input_FechaPublicacion" class="form-control" type="date" value="@Model.Input.FechaPublicacion?.ToString("yyyy-MM-dd")" data-testid="fechapublicacion" />
+            <span asp-validation-for="Input.FechaPublicacion" class="text-danger" data-testid="fechapublicacion-error"></span>
         </div>
 
         <div class="col-12">
             <label asp-for="Input.Sinopsis" class="form-label">Sinopsis</label>
-            <textarea asp-for="Input.Sinopsis" class="form-control" rows="4"></textarea>
-            <span asp-validation-for="Input.Sinopsis" class="text-danger"></span>
+            <textarea name="Input.Sinopsis" id="Input_Sinopsis" class="form-control" rows="4" data-testid="sinopsis">@Model.Input.Sinopsis</textarea>
+            <span asp-validation-for="Input.Sinopsis" class="text-danger" data-testid="sinopsis-error"></span>
         </div>
     </div>
 
     <div class="mt-4 d-flex gap-2">
-        <button type="submit" class="btn btn-primary"><i class="bi bi-check2-circle"></i> Guardar</button>
-        <a asp-page="Index" class="btn btn-outline-primary">Cancelar</a>
+        <button type="submit" class="btn btn-primary" data-testid="submit-button"><i class="bi bi-check2-circle"></i> Guardar</button>
+        <a asp-page="Index" class="btn btn-outline-primary" data-testid="cancel-button">Cancelar</a>
     </div>
 </form>
 
