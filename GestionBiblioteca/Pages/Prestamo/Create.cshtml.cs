@@ -40,14 +40,20 @@ public class Create : PageModel
     }
 
     [BindProperty(SupportsGet = true)]
-    [Required(ErrorMessage = "Introduzca un número de CI")]
+    [Required(ErrorMessage = "El CI del lector es obligatorio")]
+    [Display(Name = "CI del lector")]
+    [StringLength(10, MinimumLength = 6, ErrorMessage = "El CI debe tener entre 6 y 10 caracteres")]
     public string Ci { get; set; } = string.Empty;
     
     [BindProperty(SupportsGet = true)] 
-    [Required(ErrorMessage = "Introduzca un título")]
+    [Required(ErrorMessage = "El título del libro es obligatorio")]
+    [Display(Name = "Título del libro")]
     public string Titulo { get; set; } = string.Empty;
 
-    [BindProperty] public List<LineaInput> Lineas { get; set; } = new();
+    [BindProperty] 
+        [Required(ErrorMessage = "Debe seleccionar al menos un ejemplar")]
+        [Display(Name = "Ejemplares")]
+        public List<LineaInput> Lineas { get; set; } = new();
 
     public Ent.Usuario? UsuarioEncontrado { get; private set; }
     public List<Ent.Libro>? LibrosEncontrados { get; private set; }
@@ -56,10 +62,22 @@ public class Create : PageModel
     public async Task OnGetAsync()
     {
         if (!string.IsNullOrWhiteSpace(Ci))
+        {
             UsuarioEncontrado = await _usuarioService.ObtenerPorCi(Ci);
+            if (UsuarioEncontrado == null)
+            {
+                ModelState.AddModelError("Ci", "No se encontró un lector con el CI especificado");
+            }
+        }
 
         if (!string.IsNullOrWhiteSpace(Titulo))
+        {
             LibrosEncontrados = await _libroService.ObtenerEjemplaresPorTitulo(Titulo);
+            if (LibrosEncontrados == null || !LibrosEncontrados.Any())
+            {
+                ModelState.AddModelError("Titulo", "No se encontraron libros con el título especificado");
+            }
+        }
 
         var ids = await _draft.GetAllAsync(UsuarioEncontrado?.Id ?? 0);
 
@@ -90,9 +108,20 @@ public class Create : PageModel
 
     public async Task<IActionResult> OnPostAgregarEjemplar(int ejemplarId, string ci, string titulo)
     {
-        Ci = ci; Titulo = titulo;
+        if (string.IsNullOrWhiteSpace(ci))
+        {
+            ModelState.AddModelError("Ci", "Debe ingresar un CI para agregar ejemplares");
+            return Page();
+        }
+
+        Ci = ci; 
+        Titulo = titulo;
         var u = await _usuarioService.ObtenerPorCi(Ci);
-        if (u is null) return RedirectToPage(new { Ci, Titulo });
+        if (u is null)
+        {
+            ModelState.AddModelError("Ci", "No se encontró un lector con el CI especificado");
+            return Page();
+        }
 
         await _draft.AddAsync(u.Id, ejemplarId);
         return RedirectToPage(new { Ci, Titulo });

@@ -11,29 +11,33 @@
 <form method="post" class="mt-3">
     <div class="row g-3">
         <div class="col-md-6">
-            <label asp-for="Input.IdLibro" class="form-label">Libro</label>
-            <select asp-for="Input.IdLibro" class="form-select" asp-items="Model.LibrosSelect">
+            <label for="Input_IdLibro" class="form-label">Libro</label>
+            <select name="Input.IdLibro" id="Input_IdLibro" class="form-select" data-testid="idlibro" asp-items="Model.LibrosSelect">
             </select>
+            <span class="text-danger" data-testid="idlibro-error" data-valmsg-for="Input.IdLibro" data-valmsg-replace="true"></span>
         </div>
 
         <div class="col-md-6">
-            <label asp-for="Input.FechaAdquisicion" class="form-label">Fecha adquisición</label>
-            <input asp-for="Input.FechaAdquisicion" class="form-control" type="date" />
+            <label for="Input_FechaAdquisicion" class="form-label">Fecha adquisición</label>
+            <input name="Input.FechaAdquisicion" id="Input_FechaAdquisicion" class="form-control" type="date" data-testid="fechaadquisicion" />
+            <span class="text-danger" data-testid="fechaadquisicion-error" data-valmsg-for="Input.FechaAdquisicion" data-valmsg-replace="true"></span>
         </div>
 
         <div class="col-12">
-            <label asp-for="Input.Descripcion" class="form-label">Descripción</label>
-            <input asp-for="Input.Descripcion" class="form-control" />
+            <label for="Input_Descripcion" class="form-label">Descripción</label>
+            <input name="Input.Descripcion" id="Input_Descripcion" class="form-control" data-testid="descripcion" />
+            <span class="text-danger" data-testid="descripcion-error" data-valmsg-for="Input.Descripcion" data-valmsg-replace="true"></span>
         </div>
 
         <div class="col-12">
-            <label asp-for="Input.Observaciones" class="form-label">Observaciones</label>
-            <input asp-for="Input.Observaciones" class="form-control" />
+            <label for="Input_Observaciones" class="form-label">Observaciones</label>
+            <input name="Input.Observaciones" id="Input_Observaciones" class="form-control" data-testid="observaciones" />
+            <span class="text-danger" data-testid="observaciones-error" data-valmsg-for="Input.Observaciones" data-valmsg-replace="true"></span>
         </div>
 
         <div class="col-md-4">
-            <label asp-for="Input.Disponible" class="form-label">Disponible</label>
-            <select asp-for="Input.Disponible" class="form-select">
+            <label for="Input_Disponible" class="form-label">Disponible</label>
+            <select name="Input.Disponible" id="Input_Disponible" class="form-select" data-testid="disponible">
                 <option value="true">Sí</option>
                 <option value="false">No</option>
             </select>
@@ -41,7 +45,7 @@
     </div>
 
     <div class="mt-4 d-flex gap-2">
-        <button type="submit" class="btn btn-primary"><i class="bi bi-check2-circle"></i> Guardar</button>
+        <button type="submit" class="btn btn-primary" data-testid="submit-button"><i class="bi bi-check2-circle"></i> Guardar</button>
         <a asp-page="Index" class="btn btn-outline-primary">Cancelar</a>
     </div>
 </form>

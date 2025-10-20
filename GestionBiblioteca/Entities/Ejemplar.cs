@@ -21,7 +21,7 @@ public partial class Ejemplar
     [Display(Name = "Descripción")]
     public string? Descripcion { get; set; }
     
-    [StringLength(300, ErrorMessage = "Las observaciones no pueden superar 300 caracteres")]
+    [StringLength(100, ErrorMessage = "Las observaciones no pueden superar 100 caracteres")]
     [Display(Name = "Observaciones")]
     public string? Observaciones { get; set; }
     
