@@ -11,39 +11,39 @@
 <form method="post" class="mt-3">
     <div class="row g-3">
         <div class="col-md-4">
-            <label for="Input_Ci" class="form-label">CI</label>
-            <input name="Input.Ci" id="Input_Ci" class="form-control" data-testid="ci" />
-            <span class="text-danger" data-testid="ci-error" data-valmsg-for="Input.Ci" data-valmsg-replace="true"></span>
+            <label asp-for="Input.Ci" class="form-label">CI</label>
+            <input name="Input.Ci" id="Input_Ci" class="form-control" data-testid="ci" value="@Model.Input.Ci" />
+            <span asp-validation-for="Input.Ci" class="text-danger" data-testid="ci-error" data-valmsg-for="Input.Ci" data-valmsg-replace="true"></span>
         </div>
         <div class="col-md-4">
-            <label for="Input_PrimerNombre" class="form-label">Primer nombre</label>
-            <input name="Input.PrimerNombre" id="Input_PrimerNombre" class="form-control" data-testid="primernombre" />
-            <span class="text-danger" data-testid="primernombre-error" data-valmsg-for="Input.PrimerNombre" data-valmsg-replace="true"></span>
+            <label asp-for="Input.PrimerNombre" class="form-label">Primer nombre</label>
+            <input name="Input.PrimerNombre" id="Input_PrimerNombre" class="form-control" data-testid="primernombre" value="@Model.Input.PrimerNombre" />
+            <span asp-validation-for="Input.PrimerNombre" class="text-danger" data-testid="primernombre-error" data-valmsg-for="Input.PrimerNombre" data-valmsg-replace="true"></span>
         </div>
         <div class="col-md-4">
-            <label for="Input_SegundoNombre" class="form-label">Segundo nombre</label>
-            <input name="Input.SegundoNombre" id="Input_SegundoNombre" class="form-control" data-testid="segundonombre" />
-            <span class="text-danger" data-testid="segundonombre-error" data-valmsg-for="Input.SegundoNombre" data-valmsg-replace="true"></span>
+            <label asp-for="Input.SegundoNombre" class="form-label">Segundo nombre</label>
+            <input name="Input.SegundoNombre" id="Input_SegundoNombre" class="form-control" data-testid="segundonombre" value="@Model.Input.SegundoNombre" />
+            <span asp-validation-for="Input.SegundoNombre" class="text-danger" data-testid="segundonombre-error" data-valmsg-for="Input.SegundoNombre" data-valmsg-replace="true"></span>
         </div>
         <div class="col-md-4">
-            <label for="Input_PrimerApellido" class="form-label">Primer apellido</label>
-            <input name="Input.PrimerApellido" id="Input_PrimerApellido" class="form-control" data-testid="primerapellido" />
-            <span class="text-danger" data-testid="primerapellido-error" data-valmsg-for="Input.PrimerApellido" data-valmsg-replace="true"></span>
+            <label asp-for="Input.PrimerApellido" class="form-label">Primer apellido</label>
+            <input name="Input.PrimerApellido" id="Input_PrimerApellido" class="form-control" data-testid="primerapellido" value="@Model.Input.PrimerApellido" />
+            <span asp-validation-for="Input.PrimerApellido" class="text-danger" data-testid="primerapellido-error" data-valmsg-for="Input.PrimerApellido" data-valmsg-replace="true"></span>
         </div>
         <div class="col-md-4">
-            <label for="Input_SegundoApellido" class="form-label">Segundo apellido</label>
-            <input name="Input.SegundoApellido" id="Input_SegundoApellido" class="form-control" data-testid="segundoapellido" />
-            <span class="text-danger" data-testid="segundoapellido-error" data-valmsg-for="Input.SegundoApellido" data-valmsg-replace="true"></span>
+            <label asp-for="Input.SegundoApellido" class="form-label">Segundo apellido</label>
+            <input name="Input.SegundoApellido" id="Input_SegundoApellido" class="form-control" data-testid="segundoapellido" value="@Model.Input.SegundoApellido" />
+            <span asp-validation-for="Input.SegundoApellido" class="text-danger" data-testid="segundoapellido-error" data-valmsg-for="Input.SegundoApellido" data-valmsg-replace="true"></span>
         </div>
         <div class="col-md-4">
-            <label for="Input_Telefono" class="form-label">Teléfono</label>
-            <input name="Input.Telefono" id="Input_Telefono" class="form-control" data-testid="telefono" />
-            <span class="text-danger" data-testid="telefono-error" data-valmsg-for="Input.Telefono" data-valmsg-replace="true"></span>
+            <label asp-for="Input.Telefono" class="form-label">Teléfono</label>
+            <input name="Input.Telefono" id="Input_Telefono" class="form-control" data-testid="telefono" value="@Model.Input.Telefono" />
+            <span asp-validation-for="Input.Telefono" class="text-danger" data-testid="telefono-error" data-valmsg-for="Input.Telefono" data-valmsg-replace="true"></span>
         </div>
         <div class="col-md-6">
-            <label for="Input_Correo" class="form-label">Correo</label>
-            <input name="Input.Correo" id="Input_Correo" class="form-control" data-testid="correo" />
-            <span class="text-danger" data-testid="correo-error" data-valmsg-for="Input.Correo" data-valmsg-replace="true"></span>
+            <label asp-for="Input.Correo" class="form-label">Correo</label>
+            <input name="Input.Correo" id="Input_Correo" class="form-control" data-testid="correo" value="@Model.Input.Correo" />
+            <span asp-validation-for="Input.Correo"class="text-danger" data-testid="correo-error" data-valmsg-for="Input.Correo" data-valmsg-replace="true"></span>
         </div>
     </div>
     <div class="mt-4 d-flex gap-2">

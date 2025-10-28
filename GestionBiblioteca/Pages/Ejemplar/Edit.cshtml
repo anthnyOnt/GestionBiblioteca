@@ -19,19 +19,19 @@
 
         <div class="col-md-6">
             <label for="Input_FechaAdquisicion" class="form-label">Fecha adquisición</label>
-            <input name="Input.FechaAdquisicion" id="Input_FechaAdquisicion" class="form-control" type="date" data-testid="fechaadquisicion" />
+            <input name="Input.FechaAdquisicion" id="Input_FechaAdquisicion" class="form-control" type="date" data-testid="fechaadquisicion" value="@Model.Input.FechaAdquisicion.ToString("yyyy-MM-dd")" />
             <span class="text-danger" data-testid="fechaadquisicion-error" data-valmsg-for="Input.FechaAdquisicion" data-valmsg-replace="true"></span>
         </div>
 
         <div class="col-12">
             <label for="Input_Descripcion" class="form-label">Descripción</label>
-            <input name="Input.Descripcion" id="Input_Descripcion" class="form-control" data-testid="descripcion" />
+            <input name="Input.Descripcion" id="Input_Descripcion" class="form-control" data-testid="descripcion" value="@Model.Input.Descripcion"/>
             <span class="text-danger" data-testid="descripcion-error" data-valmsg-for="Input.Descripcion" data-valmsg-replace="true"></span>
         </div>
 
         <div class="col-12">
             <label for="Input_Observaciones" class="form-label">Observaciones</label>
-            <input name="Input.Observaciones" id="Input_Observaciones" class="form-control" data-testid="observaciones" />
+            <input name="Input.Observaciones" id="Input_Observaciones" class="form-control" data-testid="observaciones" value="@Model.Input.Observaciones"/>
             <span class="text-danger" data-testid="observaciones-error" data-valmsg-for="Input.Observaciones" data-valmsg-replace="true"></span>
         </div>
 
