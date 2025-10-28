@@ -34,6 +34,7 @@ public class LibroService: ILibroService
     {
         
         return await _repositoryFactory.ObtenerRepository<Entities.Libro>().ObtenerPorConsulta()
+            .Where(l => l.Activo.Equals(1))
             .ToListAsync();
     }
 
