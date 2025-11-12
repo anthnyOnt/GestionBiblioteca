@@ -36,8 +36,20 @@ public partial class MyDbContext : DbContext
     public virtual DbSet<Usuario> Usuarios { get; set; }
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySql("server=localhost;database=biblioteca_db;user=root;password=root", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.43-mysql"));
+    {
+        // Evitar sobreescribir la configuración establecida en Program.cs o en pruebas
+        // Solo configurar si no está configurado aún (fallback de desarrollo)
+        if (!optionsBuilder.IsConfigured)
+        {
+            // Fallback opcional (se puede quitar si no se desea hardcodear credenciales)
+            var conn = Environment.GetEnvironmentVariable("MYSQL_TEST_CONN");
+            if (!string.IsNullOrWhiteSpace(conn))
+            {
+                optionsBuilder.UseMySql(conn, ServerVersion.AutoDetect(conn));
+            }
+            // Si no hay variable, se asume que AddDbContext ya configuró usando appsettings.json.
+        }
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

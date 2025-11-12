@@ -57,3 +57,6 @@ app.MapRazorPages()
     .WithStaticAssets();
 
 app.Run();
+
+// Exponer Program para pruebas de integración (WebApplicationFactory)
+public partial class Program { }

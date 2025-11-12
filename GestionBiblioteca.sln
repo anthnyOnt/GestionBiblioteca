@@ -1,8 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36623.8 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestionBiblioteca", "GestionBiblioteca\GestionBiblioteca.csproj", "{11837F7F-E456-4233-89D2-2A53FDE98726}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestionBibliotecaTests", "GestionBibliotecaTests\GestionBibliotecaTests.csproj", "{1E6A4112-2EC2-46A6-932B-D192E1BA94C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestionBibliotecaTestsIntegracion", "GestionBibliotecaTestsIntegracion\GestionBibliotecaTestsIntegracion.csproj", "{5D26FC20-E5F1-4AE9-A71D-BB504E5A1198}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +23,15 @@ Global
 		{1E6A4112-2EC2-46A6-932B-D192E1BA94C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E6A4112-2EC2-46A6-932B-D192E1BA94C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E6A4112-2EC2-46A6-932B-D192E1BA94C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D26FC20-E5F1-4AE9-A71D-BB504E5A1198}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D26FC20-E5F1-4AE9-A71D-BB504E5A1198}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D26FC20-E5F1-4AE9-A71D-BB504E5A1198}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D26FC20-E5F1-4AE9-A71D-BB504E5A1198}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C519E62A-70F8-469D-A22E-729EE0AC5DB4}
 	EndGlobalSection
 EndGlobal
