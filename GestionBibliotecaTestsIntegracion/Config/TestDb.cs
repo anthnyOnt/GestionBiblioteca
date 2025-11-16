@@ -17,7 +17,7 @@ namespace GestionBibliotecaTestsIntegracion.Config
             var webAppSettings = Path.Combine(basePath, "..", "GestionBiblioteca", "appsettings.json");
             if (!File.Exists(webAppSettings))
             {
-                // Intentar también en el propio directorio
+                // Intentar tambiï¿½n en el propio directorio
                 webAppSettings = Path.Combine(basePath, "appsettings.json");
             }
 
@@ -28,9 +28,9 @@ namespace GestionBibliotecaTestsIntegracion.Config
                 .AddEnvironmentVariables()
                 .Build();
 
-            var conn = config.GetConnectionString("DefaultConnection");
+            var conn = config.GetConnectionString("TestConnection");
             if (string.IsNullOrWhiteSpace(conn))
-                throw new InvalidOperationException("No se pudo resolver la cadena de conexión para pruebas. Configure MYSQL_TEST_CONN o appsettings.json");
+                throw new InvalidOperationException("No se pudo resolver la cadena de conexiï¿½n para pruebas. Configure MYSQL_TEST_CONN o appsettings.json");
 
             return conn!;
         }
