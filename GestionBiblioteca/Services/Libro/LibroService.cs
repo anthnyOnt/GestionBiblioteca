@@ -40,13 +40,9 @@ public class LibroService: ILibroService
 
     public async Task<Entities.Libro?> ObtenerPorId(int id)
     {
+        // Usar el método directo del repositorio para compatibilidad con pruebas que mockean IQueryProvider
         return await _repositoryFactory.ObtenerRepository<Entities.Libro>()
-            .ObtenerPorConsulta()
-            .Include(l => l.IdEditorialNavigation)
-            .Include(l => l.IdAutores)
-            .Include(l => l.IdCategoria)
-            .Include(l => l.Ejemplares)
-            .FirstOrDefaultAsync(l => l.Id == id);
+            .ObtenerPorId(id);
     }
 
     public async Task<List<Entities.Libro>> ObtenerEjemplaresPorTitulo(string titulo)

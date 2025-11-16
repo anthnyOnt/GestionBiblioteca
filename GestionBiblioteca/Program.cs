@@ -22,7 +22,7 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddSingleton<IPrestamoDraftCache, PrestamoDraftCache>();
 
-builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+// builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IRepositoryFactory, RepositoryFactory>();
 
 builder.Services.AddScoped<IAutorService, AutorService>();
@@ -57,3 +57,6 @@ app.MapRazorPages()
     .WithStaticAssets();
 
 app.Run();
+
+// Exponer Program para pruebas de integraci�n (WebApplicationFactory)
+public partial class Program { }

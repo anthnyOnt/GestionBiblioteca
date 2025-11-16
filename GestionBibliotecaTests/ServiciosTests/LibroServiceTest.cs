@@ -90,11 +90,11 @@ namespace GestionBibliotecaTests
         [Fact]
         public async Task ObtenerTodos_RetornaTodos()
         {
-            // Arrange
+            // Arrange: el servicio filtra Activo == 1
             var libros = new List<Libro>
             {
-                new Libro { Id = 1, Titulo = "Libro 1" },
-                new Libro { Id = 2, Titulo = "Libro 2" }
+                new Libro { Id = 1, Titulo = "Libro 1", Activo = 1 },
+                new Libro { Id = 2, Titulo = "Libro 2", Activo = 1 }
             };
             
             var mockDbSet = libros.AsQueryable().BuildMockAsyncQueryable();
@@ -113,7 +113,7 @@ namespace GestionBibliotecaTests
         [Fact]
         public async Task ObtenerPorId_LibroExiste()
         {
-            var libro = new Libro { Id = 10, Titulo = "Libro de Prueba" };
+            var libro = new Libro { Id = 10, Titulo = "Libro de Prueba", Activo = 1 };
             _mockLibroRepo.Setup(r => r.ObtenerPorId(10)).ReturnsAsync(libro);
 
             var result = await _libroService.ObtenerPorId(10);
