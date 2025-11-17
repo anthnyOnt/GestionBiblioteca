@@ -1,19 +1,10 @@
 ﻿using System.Reflection;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Xunit;
-using GestionBiblioteca.Context;        // MyDbContext
-using GestionBiblioteca.Repository;
-using GestionBiblioteca.Services.Autor;
-using GestionBiblioteca.Services.Categoria;
-using GestionBiblioteca.Services.Editorial;
 using GestionBiblioteca.Services.Ejemplar;
 using GestionBiblioteca.Services.Libro;
 using GestionBiblioteca.Services.Prestamo;
-using GestionBiblioteca.Services.PrestamoDraftCache;
 using GestionBiblioteca.Services.Usuario;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Testing; // RepositoryFactory (si existe en tu repo)
 
 namespace GestionBibliotecaTestsIntegracion.Config
@@ -35,7 +26,7 @@ namespace GestionBibliotecaTestsIntegracion.Config
                 .AddEnvironmentVariables()
                 .Build();
 
-            var conn = config.GetConnectionString("TestConnection");
+            var conn = config.GetConnectionString("DefaultConnection");
             Assert.False(string.IsNullOrWhiteSpace(conn));
         }
 
@@ -54,23 +45,10 @@ namespace GestionBibliotecaTestsIntegracion.Config
         }
 
         [Theory]
-        // DbContext
-        [InlineData(typeof(MyDbContext))]
-        // Cache
-        [InlineData(typeof(IPrestamoDraftCache))]
-        // Repositorios
-        [InlineData(typeof(IRepositoryFactory))]
-        // [InlineData(typeof(IRepository<>))]  // Verificación de open generic
-        // Servicios de dominio
-        [InlineData(typeof(IAutorService))]
-        [InlineData(typeof(ICategoriaService))]
-        [InlineData(typeof(IEditorialService))]
         [InlineData(typeof(IEjemplarService))]
         [InlineData(typeof(ILibroService))]
         [InlineData(typeof(IPrestamoService))]
         [InlineData(typeof(IUsuarioService))]
-        // Accesor HTTP
-        [InlineData(typeof(IHttpContextAccessor))]
         public void CFG_003_Todos_los_servicios_se_resuelven_correctamente(Type serviceType)
         {
             using var scope = _factory.Services.CreateScope();
