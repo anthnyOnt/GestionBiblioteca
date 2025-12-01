@@ -148,23 +148,23 @@ namespace ReqnrollTest.Features.Libros.Read
 #line 12
     await testRunner.WhenAsync("consulto la información del libro con ISBN \"9781234567890\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-                global::Reqnroll.Table table6 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table12 = new global::Reqnroll.Table(new string[] {
                             "Campo",
                             "Valor"});
-                table6.AddRow(new string[] {
+                table12.AddRow(new string[] {
                             "ISBN",
                             "9781234567890"});
-                table6.AddRow(new string[] {
+                table12.AddRow(new string[] {
                             "Titulo",
                             "El Principito"});
-                table6.AddRow(new string[] {
+                table12.AddRow(new string[] {
                             "Idioma",
                             "Español"});
-                table6.AddRow(new string[] {
+                table12.AddRow(new string[] {
                             "Estado",
                             "Activo"});
 #line 13
-    await testRunner.ThenAsync("el sistema muestra la información completa del libro:", ((string)(null)), table6, "Then ");
+    await testRunner.ThenAsync("el sistema muestra la información completa del libro:", ((string)(null)), table12, "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

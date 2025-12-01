@@ -152,29 +152,29 @@ namespace ReqnrollTest.Features.Libros.Insert
 #line 11
     await testRunner.GivenAsync(string.Format("que no existe un libro con ISBN \"{0}\"", iSBN), ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-                global::Reqnroll.Table table4 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table10 = new global::Reqnroll.Table(new string[] {
                             "Campo",
                             "Valor"});
-                table4.AddRow(new string[] {
+                table10.AddRow(new string[] {
                             "Titulo",
                             string.Format("{0}", titulo)});
-                table4.AddRow(new string[] {
+                table10.AddRow(new string[] {
                             "ISBN",
                             string.Format("{0}", iSBN)});
-                table4.AddRow(new string[] {
+                table10.AddRow(new string[] {
                             "Idioma",
                             string.Format("{0}", idioma)});
-                table4.AddRow(new string[] {
+                table10.AddRow(new string[] {
                             "Edicion",
                             string.Format("{0}", edicion)});
-                table4.AddRow(new string[] {
+                table10.AddRow(new string[] {
                             "FechaPublicacion",
                             string.Format("{0}", fechaPublicacion)});
-                table4.AddRow(new string[] {
+                table10.AddRow(new string[] {
                             "Sinopsis",
                             string.Format("{0}", sinopsis)});
 #line 12
-    await testRunner.WhenAsync("registro un nuevo libro con los siguientes datos:", ((string)(null)), table4, "When ");
+    await testRunner.WhenAsync("registro un nuevo libro con los siguientes datos:", ((string)(null)), table10, "When ");
 #line hidden
 #line 20
     await testRunner.ThenAsync("el libro se guarda correctamente en el sistema", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");

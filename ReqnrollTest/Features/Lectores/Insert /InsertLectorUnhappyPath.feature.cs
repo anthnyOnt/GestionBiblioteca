@@ -144,32 +144,32 @@ await this.FeatureBackgroundAsync();
 #line 11
     await testRunner.GivenAsync("que no existe un lector con CI \"12340000\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-                global::Reqnroll.Table table2 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table8 = new global::Reqnroll.Table(new string[] {
                             "Campo",
                             "Valor"});
-                table2.AddRow(new string[] {
+                table8.AddRow(new string[] {
                             "CI",
                             "12340000"});
-                table2.AddRow(new string[] {
+                table8.AddRow(new string[] {
                             "PrimerNombre",
                             "Luis"});
-                table2.AddRow(new string[] {
+                table8.AddRow(new string[] {
                             "SegundoNombre",
                             "Manuel"});
-                table2.AddRow(new string[] {
+                table8.AddRow(new string[] {
                             "PrimerApellido",
                             "Suarez"});
-                table2.AddRow(new string[] {
+                table8.AddRow(new string[] {
                             "SegundoApellido",
                             "Loza"});
-                table2.AddRow(new string[] {
+                table8.AddRow(new string[] {
                             "Telefono",
                             "79999999"});
-                table2.AddRow(new string[] {
+                table8.AddRow(new string[] {
                             "Correo",
                             ""});
 #line 12
-    await testRunner.WhenAsync("intento registrar un lector con los siguientes datos:", ((string)(null)), table2, "When ");
+    await testRunner.WhenAsync("intento registrar un lector con los siguientes datos:", ((string)(null)), table8, "When ");
 #line hidden
 #line 21
     await testRunner.ThenAsync("el sistema rechaza la operacion con el mensaje \"El correo electrónico es obligato" +

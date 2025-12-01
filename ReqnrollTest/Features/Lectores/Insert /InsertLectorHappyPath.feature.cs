@@ -153,32 +153,32 @@ await this.FeatureBackgroundAsync();
 #line 11
     await testRunner.GivenAsync(string.Format("que no existe un lector con CI \"{0}\"", ci), ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-                global::Reqnroll.Table table1 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table7 = new global::Reqnroll.Table(new string[] {
                             "Campo",
                             "Valor"});
-                table1.AddRow(new string[] {
+                table7.AddRow(new string[] {
                             "CI",
                             string.Format("{0}", ci)});
-                table1.AddRow(new string[] {
+                table7.AddRow(new string[] {
                             "PrimerNombre",
                             string.Format("{0}", primerNombre)});
-                table1.AddRow(new string[] {
+                table7.AddRow(new string[] {
                             "SegundoNombre",
                             string.Format("{0}", segundoNombre)});
-                table1.AddRow(new string[] {
+                table7.AddRow(new string[] {
                             "PrimerApellido",
                             string.Format("{0}", primerApellido)});
-                table1.AddRow(new string[] {
+                table7.AddRow(new string[] {
                             "SegundoApellido",
                             string.Format("{0}", segundoApellido)});
-                table1.AddRow(new string[] {
+                table7.AddRow(new string[] {
                             "Telefono",
                             string.Format("{0}", telefono)});
-                table1.AddRow(new string[] {
+                table7.AddRow(new string[] {
                             "Correo",
                             string.Format("{0}", correo)});
 #line 12
-    await testRunner.WhenAsync("registro un nuevo lector con los siguientes datos:", ((string)(null)), table1, "When ");
+    await testRunner.WhenAsync("registro un nuevo lector con los siguientes datos:", ((string)(null)), table7, "When ");
 #line hidden
 #line 21
     await testRunner.ThenAsync("el lector se guarda correctamente", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");

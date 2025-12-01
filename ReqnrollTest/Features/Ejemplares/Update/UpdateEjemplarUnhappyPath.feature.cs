@@ -11,26 +11,27 @@
 #region Designer generated code
 #pragma warning disable
 using Reqnroll;
-namespace ReqnrollTest.Features.Libros.Insert
+namespace ReqnrollTest.Features.Ejemplares.Update
 {
     
     
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Reqnroll", "3.0.0.0")]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::NUnit.Framework.TestFixtureAttribute()]
-    [global::NUnit.Framework.DescriptionAttribute("Validación de Errores en Registro de Libros")]
+    [global::NUnit.Framework.DescriptionAttribute("Actualizar Ejemplar Path No Exitoso")]
     [global::NUnit.Framework.FixtureLifeCycleAttribute(global::NUnit.Framework.LifeCycle.InstancePerTestCase)]
-    public partial class ValidacionDeErroresEnRegistroDeLibrosFeature
+    public partial class ActualizarEjemplarPathNoExitosoFeature
     {
         
         private global::Reqnroll.ITestRunner testRunner;
         
         private static string[] featureTags = ((string[])(null));
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/Libros/Insert", "Validación de Errores en Registro de Libros", "Como bibliotecario\nQuiero que el sistema valide los datos al registrar un libro\nP" +
-                "ara evitar información incorrecta en el catálogo", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/Ejemplares/Update", "Actualizar Ejemplar Path No Exitoso", "  Como bibliotecario\n  Quiero recibir errores de validación claros al actualizar " +
+                "ejemplar con datos inválidos\n  Para poder corregir la información y mantener la " +
+                "integridad de los datos", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
         
-#line 1 "InsertLibroUnhappyPath.feature"
+#line 1 "UpdateEjemplarUnhappyPath.feature"
 #line hidden
         
         [global::NUnit.Framework.OneTimeSetUpAttribute()]
@@ -106,26 +107,30 @@ namespace ReqnrollTest.Features.Libros.Insert
         
         public virtual async global::System.Threading.Tasks.Task FeatureBackgroundAsync()
         {
-#line 7
+#line 6
   #line hidden
+#line 7
+    await testRunner.GivenAsync("que tengo acceso al sistema de gestión de biblioteca para ejemplares update unhap" +
+                    "py", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
 #line 8
-    await testRunner.GivenAsync("que soy un usuario autorizado del sistema para libros", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+    await testRunner.AndAsync("que existen ejemplares que pueden ser modificados para update unhappy", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
         }
         
         private static global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages InitializeCucumberMessages()
         {
-            return new global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages("Features/Libros/Insert/InsertLibroUnhappyPath.feature.ndjson", 3);
+            return new global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages("Features/Ejemplares/Update/UpdateEjemplarUnhappyPath.feature.ndjson", 3);
         }
         
         [global::NUnit.Framework.TestAttribute()]
-        [global::NUnit.Framework.DescriptionAttribute("Registrar libro sin título debe fallar")]
-        public async global::System.Threading.Tasks.Task RegistrarLibroSinTituloDebeFallar()
+        [global::NUnit.Framework.DescriptionAttribute("Falla al actualizar ejemplar con datos inválidos")]
+        public async global::System.Threading.Tasks.Task FallaAlActualizarEjemplarConDatosInvalidos()
         {
             string[] tagsOfScenario = ((string[])(null));
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             string pickleIndex = "0";
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Registrar libro sin título debe fallar", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Falla al actualizar ejemplar con datos inválidos", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
 #line 10
@@ -138,42 +143,34 @@ namespace ReqnrollTest.Features.Libros.Insert
             else
             {
                 await this.ScenarioStartAsync();
-#line 7
+#line 6
   await this.FeatureBackgroundAsync();
 #line hidden
 #line 11
-    await testRunner.GivenAsync("que no existe un libro con ISBN \"9781234567890\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+    await testRunner.GivenAsync("que existe un ejemplar que puede ser actualizado para ejemplares update unhappy", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-                global::Reqnroll.Table table11 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table6 = new global::Reqnroll.Table(new string[] {
                             "Campo",
                             "Valor"});
-                table11.AddRow(new string[] {
-                            "Titulo",
-                            ""});
-                table11.AddRow(new string[] {
-                            "ISBN",
-                            "9781234567890"});
-                table11.AddRow(new string[] {
-                            "Idioma",
-                            "Español"});
-                table11.AddRow(new string[] {
-                            "Edicion",
-                            "1ra edición"});
-                table11.AddRow(new string[] {
-                            "FechaPublicacion",
-                            "2020-01-01"});
-                table11.AddRow(new string[] {
-                            "Sinopsis",
-                            "Libro sin título"});
+                table6.AddRow(new string[] {
+                            "Descripcion",
+                            "null"});
+                table6.AddRow(new string[] {
+                            "Observaciones",
+                            "Valid"});
 #line 12
-    await testRunner.WhenAsync("intento registrar un libro con los siguientes datos:", ((string)(null)), table11, "When ");
+    await testRunner.WhenAsync("intento actualizar el ejemplar con datos inválidos para ejemplares update unhappy" +
+                        ":", ((string)(null)), table6, "When ");
 #line hidden
-#line 20
-    await testRunner.ThenAsync("el sistema rechaza la operación con el mensaje de libro \"El título es obligatorio" +
-                        "\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line 16
+    await testRunner.AndAsync("envío el formulario de actualización del ejemplar para ejemplares update unhappy", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 21
-    await testRunner.AndAsync("no se crea ningún libro en el sistema", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line 17
+    await testRunner.ThenAsync("la actualización del ejemplar debe fallar para ejemplares update unhappy", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 18
+    await testRunner.AndAsync("debo recibir un mensaje de error de validación para ejemplares update unhappy: \"L" +
+                        "a descripción es obligatoria\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

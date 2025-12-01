@@ -148,23 +148,23 @@ await this.FeatureBackgroundAsync();
 #line 12
     await testRunner.WhenAsync("consulto la información del lector con CI \"12345678\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-                global::Reqnroll.Table table3 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table9 = new global::Reqnroll.Table(new string[] {
                             "Campo",
                             "Valor"});
-                table3.AddRow(new string[] {
+                table9.AddRow(new string[] {
                             "CI",
                             "12345678"});
-                table3.AddRow(new string[] {
+                table9.AddRow(new string[] {
                             "Nombre",
                             "Juan Pérez"});
-                table3.AddRow(new string[] {
+                table9.AddRow(new string[] {
                             "Correo",
                             "juan.perez@email.com"});
-                table3.AddRow(new string[] {
+                table9.AddRow(new string[] {
                             "Estado",
                             "Activo"});
 #line 13
-    await testRunner.ThenAsync("el sistema muestra la información completa del lector:", ((string)(null)), table3, "Then ");
+    await testRunner.ThenAsync("el sistema muestra la información completa del lector:", ((string)(null)), table9, "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
