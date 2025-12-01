@@ -42,11 +42,11 @@ public class HappyPathMainProcessSteps
         services.AddDbContext<MyDbContext>(options =>
         {
             options.UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString());
-            // Ignore warnings for in-memory database - it doesn't support transactions
+
             options.ConfigureWarnings(w => w.Default(WarningBehavior.Ignore));
         });
         
-        // Register repository factory
+
         services.AddScoped<IRepositoryFactory, RepositoryFactory>();
         
         // Register services
@@ -67,7 +67,7 @@ public class HappyPathMainProcessSteps
         
         _testEjemplares = new List<Ejemplar>();
         
-        // Ensure database is created
+
         _context.Database.EnsureCreated();
     }
 
@@ -88,10 +88,10 @@ public class HappyPathMainProcessSteps
             CreadoPor = 1
         };
 
-        // Act - Create the user using the service
+
         await _usuarioService.AgregarLector(_testUser);
         
-        // Assert - Verify user was created
+
         var createdUser = await _usuarioService.ObtenerPorCi(ci);
         createdUser.Should().NotBeNull();
         createdUser.Ci.Should().Be(ci);
@@ -101,7 +101,7 @@ public class HappyPathMainProcessSteps
     [Given(@"existe un libro con Título ""(.*)"" y (.*) ejemplares disponibles")]
     public async Task GivenExisteUnLibroConTituloYEjemplaresDisponibles(string titulo, int cantidadEjemplares)
     {
-        // Arrange - Create a test book
+
         _testBook = new Libro
         {
             Titulo = titulo,
@@ -115,10 +115,8 @@ public class HappyPathMainProcessSteps
             CreadoPor = 1
         };
 
-        // Act - Create the book using the service
         await _libroService.Crear(_testBook);
 
-        // Create the specified number of available ejemplares (copies)
         for (int i = 1; i <= cantidadEjemplares; i++)
         {
             var ejemplar = new Ejemplar
@@ -233,7 +231,6 @@ public class HappyPathMainProcessSteps
     [Then(@"se crea el registro de préstamo con estado ""(.*)""")]
     public async Task ThenSeCreaElRegistroDePrestamoConEstado(string estado)
     {
-        // Assert - Verify loan record exists with correct status
         _testPrestamo.Should().NotBeNull();
         
         if (estado == "Activo")
@@ -248,7 +245,6 @@ public class HappyPathMainProcessSteps
             _testPrestamo.FechaCancelacion.Should().NotBeNull();
         }
         
-        // Verify prestamo ejemplares were created
         var prestamoDetalle = await _prestamoService.ObtenerPorId(_testPrestamo.Id);
         prestamoDetalle.Should().NotBeNull();
         prestamoDetalle.PrestamoEjemplares.Should().HaveCount(2, "Should have 2 ejemplares in the loan");
