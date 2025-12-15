@@ -185,32 +185,32 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line 6
 await this.FeatureBackgroundAsync();
 #line hidden
-                global::Reqnroll.Table table2 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table4 = new global::Reqnroll.Table(new string[] {
                             "Campo",
                             "Valor"});
-                table2.AddRow(new string[] {
+                table4.AddRow(new string[] {
                             "PrimerNombre",
                             string.Format("{0}", primerNombre)});
-                table2.AddRow(new string[] {
+                table4.AddRow(new string[] {
                             "SegundoNombre",
                             string.Format("{0}", segundoNombre)});
-                table2.AddRow(new string[] {
+                table4.AddRow(new string[] {
                             "PrimerApellido",
                             string.Format("{0}", primerApellido)});
-                table2.AddRow(new string[] {
+                table4.AddRow(new string[] {
                             "SegundoApellido",
                             string.Format("{0}", segundoApellido)});
-                table2.AddRow(new string[] {
+                table4.AddRow(new string[] {
                             "CI",
                             string.Format("{0}", cI)});
-                table2.AddRow(new string[] {
+                table4.AddRow(new string[] {
                             "Telefono",
                             string.Format("{0}", telefono)});
-                table2.AddRow(new string[] {
+                table4.AddRow(new string[] {
                             "Correo",
                             string.Format("{0}", correo)});
 #line 10
-    await testRunner.WhenAsync("lleno el formulario de lector con los siguientes datos:", ((string)(null)), table2, "When ");
+    await testRunner.WhenAsync("lleno el formulario de lector con los siguientes datos:", ((string)(null)), table4, "When ");
 #line hidden
 #line 19
     await testRunner.AndAsync("envío el formulario", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");

@@ -109,32 +109,32 @@ namespace UITests.Features.Lectores
         {
 #line 6
 #line hidden
-            global::Reqnroll.Table table3 = new global::Reqnroll.Table(new string[] {
+            global::Reqnroll.Table table5 = new global::Reqnroll.Table(new string[] {
                         "Campo",
                         "Valor"});
-            table3.AddRow(new string[] {
+            table5.AddRow(new string[] {
                         "CI",
                         "1234567"});
-            table3.AddRow(new string[] {
+            table5.AddRow(new string[] {
                         "PrimerNombre",
                         "Test"});
-            table3.AddRow(new string[] {
+            table5.AddRow(new string[] {
                         "SegundoNombre",
                         "Usuario"});
-            table3.AddRow(new string[] {
+            table5.AddRow(new string[] {
                         "PrimerApellido",
                         "Prueba"});
-            table3.AddRow(new string[] {
+            table5.AddRow(new string[] {
                         "SegundoApellido",
                         "Sistema"});
-            table3.AddRow(new string[] {
+            table5.AddRow(new string[] {
                         "Telefono",
                         "12345678"});
-            table3.AddRow(new string[] {
+            table5.AddRow(new string[] {
                         "Correo",
                         "test@example.com"});
 #line 7
-    await testRunner.GivenAsync("que existe un lector con los siguientes datos iniciales:", ((string)(null)), table3, "Given ");
+    await testRunner.GivenAsync("que existe un lector con los siguientes datos iniciales:", ((string)(null)), table5, "Given ");
 #line hidden
 #line 16
     await testRunner.AndAsync("estoy en la página de edición de ese lector", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
@@ -193,32 +193,32 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line 6
 await this.FeatureBackgroundAsync();
 #line hidden
-                global::Reqnroll.Table table4 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table6 = new global::Reqnroll.Table(new string[] {
                             "Campo",
                             "Valor"});
-                table4.AddRow(new string[] {
+                table6.AddRow(new string[] {
                             "CI",
                             string.Format("{0}", cI)});
-                table4.AddRow(new string[] {
+                table6.AddRow(new string[] {
                             "PrimerNombre",
                             string.Format("{0}", primerNombre)});
-                table4.AddRow(new string[] {
+                table6.AddRow(new string[] {
                             "SegundoNombre",
                             string.Format("{0}", segundoNombre)});
-                table4.AddRow(new string[] {
+                table6.AddRow(new string[] {
                             "PrimerApellido",
                             string.Format("{0}", primerApellido)});
-                table4.AddRow(new string[] {
+                table6.AddRow(new string[] {
                             "SegundoApellido",
                             string.Format("{0}", segundoApellido)});
-                table4.AddRow(new string[] {
+                table6.AddRow(new string[] {
                             "Telefono",
                             string.Format("{0}", telefono)});
-                table4.AddRow(new string[] {
+                table6.AddRow(new string[] {
                             "Correo",
                             string.Format("{0}", correo)});
 #line 19
-    await testRunner.WhenAsync("actualizo el formulario de lector con los siguientes datos:", ((string)(null)), table4, "When ");
+    await testRunner.WhenAsync("actualizo el formulario de lector con los siguientes datos:", ((string)(null)), table6, "When ");
 #line hidden
 #line 28
     await testRunner.AndAsync("envío el formulario de actualización", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");

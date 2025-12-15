@@ -53,6 +53,7 @@ public class Edit : PageModel
         if (string.IsNullOrWhiteSpace(Input.Observaciones))
             Input.Observaciones = "Sin observaciones";
 
+        Input.Id = Id;
         Input.UltimaActualizacion = DateTime.Now;
         await _svc.Actualizar(Input);
         return RedirectToPage("Index");

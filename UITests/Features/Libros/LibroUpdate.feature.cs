@@ -109,29 +109,29 @@ namespace UITests.Features.Libros
         {
 #line 6
 #line hidden
-            global::Reqnroll.Table table6 = new global::Reqnroll.Table(new string[] {
+            global::Reqnroll.Table table8 = new global::Reqnroll.Table(new string[] {
                         "Campo",
                         "Valor"});
-            table6.AddRow(new string[] {
+            table8.AddRow(new string[] {
                         "Titulo",
                         "Libro de Prueba"});
-            table6.AddRow(new string[] {
+            table8.AddRow(new string[] {
                         "ISBN",
                         "TEST-INITIAL"});
-            table6.AddRow(new string[] {
+            table8.AddRow(new string[] {
                         "Sinopsis",
                         "Sinopsis inicial"});
-            table6.AddRow(new string[] {
+            table8.AddRow(new string[] {
                         "FechaPub",
                         "01/01/2020"});
-            table6.AddRow(new string[] {
+            table8.AddRow(new string[] {
                         "Idioma",
                         "Español"});
-            table6.AddRow(new string[] {
+            table8.AddRow(new string[] {
                         "Edicion",
                         "Primera"});
 #line 7
-    await testRunner.GivenAsync("que existe un libro con los siguientes datos iniciales:", ((string)(null)), table6, "Given ");
+    await testRunner.GivenAsync("que existe un libro con los siguientes datos iniciales:", ((string)(null)), table8, "Given ");
 #line hidden
 #line 15
     await testRunner.AndAsync("estoy en la página de edición de ese libro", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
@@ -140,7 +140,7 @@ namespace UITests.Features.Libros
         
         private static global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages InitializeCucumberMessages()
         {
-            return new global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages("Features/Libros/LibroUpdate.feature.ndjson", 20);
+            return new global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages("Features/Libros/LibroUpdate.feature.ndjson", 18);
         }
         
         [global::NUnit.Framework.TestAttribute()]
@@ -153,24 +153,22 @@ namespace UITests.Features.Libros
             "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
             "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "01/01/2026", "A", "AAAAAAAAAAAAAAAAAAAAA", "Rechazado", "4", null)]
         [global::NUnit.Framework.TestCaseAttribute("ULB6", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "0-306-40615-2", "Sinopsis de prueba", "03/20/2022", "AAAAAAAAAAAAAAAAAAA", "A", "Rechazado", "5", null)]
-        [global::NUnit.Framework.TestCaseAttribute("ULB7", "Romeo y Julieta", "ISBN-123-456", "", "07/04/2018", "Italiano", "Cuarta", "Aceptado", "6", null)]
-        [global::NUnit.Framework.TestCaseAttribute("ULB8", "El Principito", "", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
+        [global::NUnit.Framework.TestCaseAttribute("ULB7", "El Principito", "", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
             "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
-            "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "01/01/2026", "Alemán", "AAAAAAAAAAAAAAAAAAAAA", "Rechazado", "7", null)]
-        [global::NUnit.Framework.TestCaseAttribute("ULB9", "Hamlet", "1111111111111", "Texto de ejemplo", "11/11/2017", "A", "Quinta", "Rechazado", "8", null)]
-        [global::NUnit.Framework.TestCaseAttribute("ULB10", "Moby Dick", "999-888-777", "Una historia épica", "08/15/2023", "AAAAAAAAAAAAAAAAAAA", "Segunda", "Rechazado", "9", null)]
-        [global::NUnit.Framework.TestCaseAttribute("ULB11", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "5555555555555", "", "01/01/2026", "Portugués", "A", "Rechazado", "10", null)]
-        [global::NUnit.Framework.TestCaseAttribute("ULB12", "La Ilíada", "ABC-DEF-GHI", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
+            "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "01/01/2026", "Alemán", "AAAAAAAAAAAAAAAAAAAAA", "Rechazado", "6", null)]
+        [global::NUnit.Framework.TestCaseAttribute("ULB8", "Hamlet", "1111111111111", "Texto de ejemplo", "11/11/2017", "A", "Quinta", "Rechazado", "7", null)]
+        [global::NUnit.Framework.TestCaseAttribute("ULB9", "Moby Dick", "999-888-777", "Una historia épica", "08/15/2023", "AAAAAAAAAAAAAAAAAAA", "Segunda", "Rechazado", "8", null)]
+        [global::NUnit.Framework.TestCaseAttribute("ULB10", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "5555555555555", "", "01/01/2026", "Portugués", "A", "Rechazado", "9", null)]
+        [global::NUnit.Framework.TestCaseAttribute("ULB11", "La Ilíada", "ABC-DEF-GHI", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
             "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
-            "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "02/28/2021", "A", "Primera", "Rechazado", "11", null)]
-        [global::NUnit.Framework.TestCaseAttribute("ULB13", "Don Juan Tenorio", "", "Sinopsis breve", "05/05/2019", "Catalán", "AAAAAAAAAAAAAAAAAAAAA", "Rechazado", "12", null)]
-        [global::NUnit.Framework.TestCaseAttribute("ULB14", "Fausto", "2468101214161", "Texto medio", "01/01/2026", "AAAAAAAAAAAAAAAAAAA", "Sexta", "Rechazado", "13", null)]
-        [global::NUnit.Framework.TestCaseAttribute("ULB15", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "1357924680246", "Una sinopsis", "09/30/2020", "A", "AAAAAAAAAAAAAAAAAAAAA", "Rechazado", "14", null)]
-        [global::NUnit.Framework.TestCaseAttribute("ULB16", "Divina Comedia", "TEST-12345", "", "10/12/2022", "Italiano", "Primera", "Aceptado", "15", null)]
-        [global::NUnit.Framework.TestCaseAttribute("ULB17", "Guerra y Paz", "9999999999999", "Sinopsis extensa pero válida", "01/01/2026", "Ruso", "A", "Rechazado", "16", null)]
-        [global::NUnit.Framework.TestCaseAttribute("ULB18", "Los Miserables", "0000000000000", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
+            "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "02/28/2021", "A", "Primera", "Rechazado", "10", null)]
+        [global::NUnit.Framework.TestCaseAttribute("ULB12", "Don Juan Tenorio", "", "Sinopsis breve", "05/05/2019", "Catalán", "AAAAAAAAAAAAAAAAAAAAA", "Rechazado", "11", null)]
+        [global::NUnit.Framework.TestCaseAttribute("ULB13", "Fausto", "2468101214161", "Texto medio", "01/01/2026", "AAAAAAAAAAAAAAAAAAA", "Sexta", "Rechazado", "12", null)]
+        [global::NUnit.Framework.TestCaseAttribute("ULB14", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "1357924680246", "Una sinopsis", "09/30/2020", "A", "AAAAAAAAAAAAAAAAAAAAA", "Rechazado", "13", null)]
+        [global::NUnit.Framework.TestCaseAttribute("ULB15", "Guerra y Paz", "9999999999999", "Sinopsis extensa pero válida", "01/01/2026", "Ruso", "A", "Rechazado", "14", null)]
+        [global::NUnit.Framework.TestCaseAttribute("ULB16", "Los Miserables", "0000000000000", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
             "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
-            "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "12/31/2024", "AAAAAAAAAAAAAAAAAAA", "AAAAAAAAAAAAAAAAAAAAA", "Rechazado", "17", null)]
+            "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "12/31/2024", "AAAAAAAAAAAAAAAAAAA", "AAAAAAAAAAAAAAAAAAAAA", "Rechazado", "15", null)]
         public async global::System.Threading.Tasks.Task ActualizarLibroConDiferentesCombinacionesDeDatos(string caso, string titulo, string iSBN, string sinopsis, string fechaPub, string idioma, string edicion, string resultadoEsperado, string @__pickleIndex, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -200,29 +198,29 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line 6
 await this.FeatureBackgroundAsync();
 #line hidden
-                global::Reqnroll.Table table7 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table9 = new global::Reqnroll.Table(new string[] {
                             "Campo",
                             "Valor"});
-                table7.AddRow(new string[] {
+                table9.AddRow(new string[] {
                             "Titulo",
                             string.Format("{0}", titulo)});
-                table7.AddRow(new string[] {
+                table9.AddRow(new string[] {
                             "ISBN",
                             string.Format("{0}", iSBN)});
-                table7.AddRow(new string[] {
+                table9.AddRow(new string[] {
                             "Sinopsis",
                             string.Format("{0}", sinopsis)});
-                table7.AddRow(new string[] {
+                table9.AddRow(new string[] {
                             "FechaPub",
                             string.Format("{0}", fechaPub)});
-                table7.AddRow(new string[] {
+                table9.AddRow(new string[] {
                             "Idioma",
                             string.Format("{0}", idioma)});
-                table7.AddRow(new string[] {
+                table9.AddRow(new string[] {
                             "Edicion",
                             string.Format("{0}", edicion)});
 #line 18
-    await testRunner.WhenAsync("actualizo el formulario de libro con los siguientes datos:", ((string)(null)), table7, "When ");
+    await testRunner.WhenAsync("actualizo el formulario de libro con los siguientes datos:", ((string)(null)), table9, "When ");
 #line hidden
 #line 26
     await testRunner.AndAsync("envío el formulario de actualización de libro", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
