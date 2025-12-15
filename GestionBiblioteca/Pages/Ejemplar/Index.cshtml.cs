@@ -14,6 +14,6 @@ public class Index : PageModel
 
     public async Task OnGetAsync()
     {
-        Ejemplares = await _svc.ObtenerDisponibles();
+        Ejemplares = await _svc.ObtenerTodos();
     }
 }
