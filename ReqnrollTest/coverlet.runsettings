@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<RunSettings>
+  <DataCollectionRunSettings>
+    <DataCollectors>
+      <DataCollector friendlyName="XPlat Code Coverage">
+        <Configuration>
+          <Include>[GestionBiblioteca]*</Include>
+          <Exclude>[*Test*]*</Exclude>
+          <Exclude>[*Tests*]*</Exclude>
+          <Exclude>[ReqnrollTest]*</Exclude>
+          <ExcludeByAttribute>Obsolete</ExcludeByAttribute>
+          <ExcludeByAttribute>GeneratedCode</ExcludeByAttribute>
+          <ExcludeByAttribute>CompilerGenerated</ExcludeByAttribute>
+          <ExcludeByFile>**/Program.cs</ExcludeByFile>
+          <ExcludeByFile>**/Migrations/**/*.cs</ExcludeByFile>
+        </Configuration>
+      </DataCollector>
+    </DataCollectors>
+  </DataCollectionRunSettings>
+</RunSettings>
+

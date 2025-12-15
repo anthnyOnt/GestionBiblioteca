@@ -28,6 +28,14 @@ public class EjemplarService: IEjemplarService
         return 1;
     }
     
+    public async Task<List<Entities.Ejemplar>> ObtenerTodos()
+    {
+        return await _repositoryFactory.ObtenerRepository<Entities.Ejemplar>().ObtenerPorConsulta()
+            .Where(e => e.Activo.Equals(1))
+            .Include(e => e.IdLibroNavigation)
+            .ToListAsync();
+    }
+    
     public async Task<List<Entities.Ejemplar>> ObtenerDisponibles()
     {
         return await _repositoryFactory.ObtenerRepository<Entities.Ejemplar>().ObtenerPorConsulta()

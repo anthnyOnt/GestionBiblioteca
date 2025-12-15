@@ -1,0 +1,20 @@
+{
+  "include": [
+    "[GestionBiblioteca]*"
+  ],
+  "exclude": [
+    "[*Test*]*",
+    "[*Tests*]*",
+    "[ReqnrollTest]*"
+  ],
+  "excludeByAttribute": [
+    "Obsolete",
+    "GeneratedCode",
+    "CompilerGenerated"
+  ],
+  "excludeByFile": [
+    "**/Program.cs",
+    "**/Migrations/**/*.cs"
+  ]
+}
+
