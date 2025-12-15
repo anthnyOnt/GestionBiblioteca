@@ -33,7 +33,6 @@ namespace UITests.PageObjects
             _driver.Navigate().GoToUrl($"{TestConfig.BaseUrl}/Ejemplar/Edit/{ejemplarId}");
             _wait.Until(driver => driver.FindElement(By.CssSelector("[data-testid='descripcion']")).Displayed);
             
-            // Log the initial state of the form
             Console.WriteLine($"Navigated to Edit page for Ejemplar {ejemplarId}");
             try
             {

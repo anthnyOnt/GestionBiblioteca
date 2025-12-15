@@ -55,7 +55,7 @@ namespace UITests.StepDefinitions.Ejemplares
         public void CuandoEnvioElFormularioDeEjemplar()
         {
             _ejemplarCreatePage.SubmitForm();
-            Thread.Sleep(1000); // Wait for form processing
+            Thread.Sleep(500); 
         }
 
         [Then(@"debería ver el resultado del ejemplar ""(.*)""")]

@@ -58,7 +58,7 @@ namespace UITests.StepDefinitions.Lectores
         public void CuandoEnvioElFormulario()
         {
             _lectorCreatePage.SubmitForm();
-            Thread.Sleep(1000); // Reduced wait time for headless mode
+            Thread.Sleep(400); 
         }
 
         [Then(@"debería ver el resultado ""(.*)""")]
