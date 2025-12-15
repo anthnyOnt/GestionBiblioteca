@@ -226,29 +226,29 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line 6
 await this.FeatureBackgroundAsync();
 #line hidden
-                global::Reqnroll.Table table3 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table5 = new global::Reqnroll.Table(new string[] {
                             "Campo",
                             "Valor"});
-                table3.AddRow(new string[] {
+                table5.AddRow(new string[] {
                             "Titulo",
                             string.Format("{0}", titulo)});
-                table3.AddRow(new string[] {
+                table5.AddRow(new string[] {
                             "ISBN",
                             string.Format("{0}", iSBN)});
-                table3.AddRow(new string[] {
+                table5.AddRow(new string[] {
                             "Sinopsis",
                             string.Format("{0}", sinopsis)});
-                table3.AddRow(new string[] {
+                table5.AddRow(new string[] {
                             "FechaPub",
                             string.Format("{0}", fechaPub)});
-                table3.AddRow(new string[] {
+                table5.AddRow(new string[] {
                             "Idioma",
                             string.Format("{0}", idioma)});
-                table3.AddRow(new string[] {
+                table5.AddRow(new string[] {
                             "Edicion",
                             string.Format("{0}", edicion)});
 #line 10
-    await testRunner.WhenAsync("lleno el formulario de libro con los siguientes datos:", ((string)(null)), table3, "When ");
+    await testRunner.WhenAsync("lleno el formulario de libro con los siguientes datos:", ((string)(null)), table5, "When ");
 #line hidden
 #line 18
     await testRunner.AndAsync("envío el formulario de libro", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
