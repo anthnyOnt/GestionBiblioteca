@@ -95,7 +95,7 @@ namespace UITests.StepDefinitions.Lectores
         public void CuandoEnvioElFormularioDeActualizacion()
         {
             _lectorEditPage.SubmitForm();
-            Thread.Sleep(300); // Wait for form submission
+            Thread.Sleep(300); 
         }
 
         [Then(@"debería ver el resultado de actualización ""(.*)""")]
@@ -179,21 +179,20 @@ namespace UITests.StepDefinitions.Lectores
                 driver.Navigate().GoToUrl($"{TestConfig.BaseUrl}/Usuario/Delete/{userId}");
                 Thread.Sleep(200);
                 
-                // Find and click delete confirmation button if exists
                 try
                 {
                     var deleteButton = driver.FindElement(OpenQA.Selenium.By.CssSelector("[data-testid='delete-confirm-button']"));
                     deleteButton.Click();
-                    Thread.Sleep(500);
+                    Thread.Sleep(400);
                 }
                 catch
                 {
-                    // Ignore if delete button not found
+  
                 }
             }
             catch
             {
-                // Ignore cleanup errors
+    
             }
         }
     }

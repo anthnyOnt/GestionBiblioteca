@@ -26,7 +26,6 @@ namespace UITests.StepDefinitions.Ejemplares
         [AfterScenario]
         public void CleanupAfterScenario()
         {
-            // Clean up test ejemplar if created
             if (_testEjemplarId > 0)
             {
                 DeleteTestEjemplar(_testEjemplarId);
@@ -112,16 +111,16 @@ namespace UITests.StepDefinitions.Ejemplares
             var driver = WebDriverManager.GetDriver();
             var createPage = new EjemplarCreatePage(driver);
             
-            // Navigate to create page
+
             createPage.NavigateToEjemplarCreatePage();
             
-            // Fill and submit form
+
             createPage.FillEjemplarForm(descripcion, observaciones, fechaAdquisicion, disponible);
             createPage.SubmitForm();
             
             Thread.Sleep(300);
             
-            // Check if creation was successful (should redirect to Index)
+
             if (!createPage.IsOnSuccessPage())
             {
                 Console.WriteLine($"ERROR: Failed to create ejemplar. Still on create page or has validation errors.");
@@ -131,13 +130,13 @@ namespace UITests.StepDefinitions.Ejemplares
             // Already on index page after successful creation
             Thread.Sleep(200);
             
-            // Find the ejemplar row and extract the ID from the Edit button href
+
             try
             {
                 var rows = driver.FindElements(By.CssSelector("table.table tbody tr"));
                 Console.WriteLine($"Found {rows.Count} rows in the ejemplar table");
                 
-                // Get the first row (most recent ejemplar)
+
                 if (rows.Count > 0)
                 {
                     var firstRow = rows[0];

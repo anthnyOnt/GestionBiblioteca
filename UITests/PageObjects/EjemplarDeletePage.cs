@@ -15,7 +15,6 @@ namespace UITests.PageObjects
             _wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
         }
 
-        // Page elements
         private IWebElement PageTitle => _driver.FindElement(By.TagName("h1"));
         private IWebElement DeleteButton => _driver.FindElement(By.CssSelector("button.btn-danger"));
         private IWebElement CancelButton => _driver.FindElement(By.CssSelector("a.btn-outline-primary"));

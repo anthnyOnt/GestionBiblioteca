@@ -17,40 +17,14 @@ namespace UITests.PageObjects
             _wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
         }
 
-
         private IWebElement PageTitle => _driver.FindElement(By.TagName("h1"));
-        private IWebElement LibrosTable => _driver.FindElement(By.CssSelector("table.table"));
-        private IWebElement NoLibrosAlert => _driver.FindElement(By.CssSelector(".alert"));
-        
-
-        private IWebElement SelectAllCheckbox => _driver.FindElement(By.CssSelector("thead input[type='checkbox'], .select-all-checkbox"));
-        private IList<IWebElement> IndividualCheckboxes => _driver.FindElements(By.CssSelector("tbody input[type='checkbox']"));
-        
-
         private IList<IWebElement> LibroRows => _driver.FindElements(By.CssSelector("table.table tbody tr"));
-        
-
-        private IWebElement GetEditButton(IWebElement libroRow) => libroRow.FindElement(By.CssSelector("a.btn-outline-primary"));
         private IWebElement GetDeleteButton(IWebElement libroRow) => libroRow.FindElement(By.CssSelector("a.btn-outline-danger"));
 
-        // Navigation methods
         public void NavigateToLibroIndexPage()
         {
-            try
-            {
-                Console.WriteLine($"Navigating to: {TestConfig.BaseUrl}/Libro");
-                _driver.Navigate().GoToUrl($"{TestConfig.BaseUrl}/Libro");
-                
-
-                _wait.Until(driver => driver.FindElement(By.TagName("h1")).Displayed);
-                Console.WriteLine("Successfully navigated to Libro Index page");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Failed to navigate to Libro Index page: {ex.Message}");
-                Console.WriteLine($"Current URL: {_driver.Url}");
-                throw;
-            }
+            _driver.Navigate().GoToUrl($"{TestConfig.BaseUrl}/Libro");
+            _wait.Until(driver => driver.FindElement(By.TagName("h1")).Displayed);
         }
 
         public bool IsOnIndexPage()
@@ -77,138 +51,6 @@ namespace UITests.PageObjects
             }
         }
 
-        public void SelectAllLibros()
-        {
-            try
-            {
-                if (!HasLibros())
-                {
-                    throw new InvalidOperationException("No hay libros disponibles para seleccionar");
-                }
-
-                Console.WriteLine("Selecting all libros from the list");
-                
-
-                try
-                {
-                    SelectAllCheckbox.Click();
-                    Console.WriteLine("Clicked Select All checkbox");
-                }
-                catch (NoSuchElementException)
-                {
-
-                    Console.WriteLine("No Select All checkbox found, selecting individual checkboxes");
-                    foreach (var checkbox in IndividualCheckboxes)
-                    {
-                        if (!checkbox.Selected)
-                        {
-                            checkbox.Click();
-                        }
-                    }
-                }
-                
-                Console.WriteLine("Successfully selected all libros");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error selecting all libros: {ex.Message}");
-                throw;
-            }
-        }
-
-        public bool AreAllLibrosSelected()
-        {
-            try
-            {
-                if (!HasLibros())
-                {
-                    Console.WriteLine("No libros found, considering selection as successful");
-                    return true;
-                }
-
-                try
-                {
-                    if (SelectAllCheckbox.Selected)
-                    {
-                        Console.WriteLine("Select All checkbox is checked");
-                        return true;
-                    }
-                }
-                catch (NoSuchElementException)
-                {
-
-                    var checkboxes = IndividualCheckboxes;
-                    if (checkboxes.Count == 0)
-                    {
-
-                        Console.WriteLine("No checkboxes found, checking for visual selection indicators");
-                        var selectedRows = _driver.FindElements(By.CssSelector("table.table tbody tr.selected, table.table tbody tr.active"));
-                        
-
-                        if (selectedRows.Count == 0)
-                        {
-                            Console.WriteLine("No visual selection indicators found, but selection operation completed successfully - considering as successful");
-                            return true;
-                        }
-                        
-                        return selectedRows.Count == LibroRows.Count;
-                    }
-                    
-                    bool allSelected = checkboxes.All(cb => cb.Selected);
-                    Console.WriteLine($"Individual checkboxes all selected: {allSelected}");
-                    return allSelected;
-                }
-
-                return false;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error checking if all libros are selected: {ex.Message}");
-
-                // consider it successful for the happy path scenario
-                Console.WriteLine("Considering as successful since selection operation completed without throwing exceptions");
-                return true;
-            }
-        }
-
-        public void ClickDeleteForFirstLibro()
-        {
-            try
-            {
-                if (!HasLibros())
-                {
-                    throw new InvalidOperationException("No hay libros disponibles para eliminar");
-                }
-
-                var firstLibroRow = LibroRows.First();
-                var deleteButton = GetDeleteButton(firstLibroRow);
-                
-                Console.WriteLine("Clicking delete for first libro from the list");
-                deleteButton.Click();
-                
-                // Wait for navigation to delete page
-                _wait.Until(driver => driver.Url.Contains("/Delete"));
-                Console.WriteLine("Successfully navigated to Delete page");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error clicking delete: {ex.Message}");
-                throw;
-            }
-        }
-
-        public bool IsOnDeletePage()
-        {
-            try
-            {
-                return _driver.Url.Contains("/Libro/Delete");
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-
         public int GetLibroCount()
         {
             try
@@ -221,24 +63,18 @@ namespace UITests.PageObjects
             }
         }
 
-        public string GetFirstLibroName()
+        public void ClickDeleteForFirstLibro()
         {
-            try
+            if (!HasLibros())
             {
-                if (!HasLibros())
-                {
-                    return string.Empty;
-                }
+                throw new InvalidOperationException("No hay libros disponibles para eliminar");
+            }
 
-                var firstLibroRow = LibroRows.First();
-                var nameCell = firstLibroRow.FindElement(By.CssSelector("td:first-child"));
-                return nameCell.Text;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error getting libro name: {ex.Message}");
-                return string.Empty;
-            }
+            var firstLibroRow = LibroRows.First();
+            var deleteButton = GetDeleteButton(firstLibroRow);
+            deleteButton.Click();
+            
+            _wait.Until(driver => driver.Url.Contains("/Delete"));
         }
     }
 }
