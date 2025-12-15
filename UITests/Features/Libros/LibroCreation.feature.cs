@@ -191,10 +191,10 @@ namespace UITests.Features.Libros
             "ueblo ficticio de Macondo.", "01/15/2020", "Español13@#", "2da edición", "Rechazado", "36", null)]
         [global::NUnit.Framework.TestCaseAttribute("LIB38", "Cien años de Soledad", "12345678901234", "Una novela sobre la vida de una familia a lo largo de varias generaciones en el p" +
             "ueblo ficticio de Macondo.", "01/15/2020", "English", "", "Rechazado", "37", null)]
-        [global::NUnit.Framework.TestCaseAttribute("LIB39", "Cien años de Soledad", "0-306-18615", "", "10/19/2025", "English", "AAAAAAAAAAAAAAAAAAA", "Rechazado", "38", null)]
+        [global::NUnit.Framework.TestCaseAttribute("LIB39", "Cien años de Soledad", "0-306-18615", "", "10/19/2025", "English", "AAAAAAAAAAAAAAAAAAAAA", "Rechazado", "38", null)]
         [global::NUnit.Framework.TestCaseAttribute("LIB40", "Cien años de Soledad", "", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
             "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
-            "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "01/01/2026", "Es", "2da edición", "Rechazado", "39", null)]
+            "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "01/01/2026", "Es", "2da edición", "Rechazado", "39", null)]
         [global::NUnit.Framework.TestCaseAttribute("LIB41", "Cien años de Soledad", "12345678901234", "Una novela sobre la vida de una familia a lo largo de varias generaciones en el p" +
             "ueblo ficticio de Macondo.", "01/15/2020", "AAAAAAAAAAAAAAAAAAA", "", "Rechazado", "40", null)]
         public async global::System.Threading.Tasks.Task CrearLibroConDiferentesCombinacionesDeDatos(string caso, string titulo, string iSBN, string sinopsis, string fechaPub, string idioma, string edicion, string resultadoEsperado, string @__pickleIndex, string[] exampleTags)

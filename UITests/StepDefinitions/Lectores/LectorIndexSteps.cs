@@ -5,6 +5,7 @@ using UITests.PageObjects;
 namespace UITests.StepDefinitions.Lectores
 {
     [Binding]
+    [Scope(Feature = "Operaciones en la página de índice de lectores")]
     public class LectorIndexSteps
     {
         private readonly LectorIndexPage _lectorIndexPage;

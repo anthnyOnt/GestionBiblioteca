@@ -23,18 +23,17 @@ namespace UITests.PageObjects
         private IWebElement LectoresTable => _driver.FindElement(By.CssSelector("table.table"));
         private IWebElement NoLectoresAlert => _driver.FindElement(By.CssSelector(".alert"));
         
-        // Select All functionality (assuming there's a checkbox in the header or a select all button)
+
         private IWebElement SelectAllCheckbox => _driver.FindElement(By.CssSelector("thead input[type='checkbox'], .select-all-checkbox"));
         private IList<IWebElement> IndividualCheckboxes => _driver.FindElements(By.CssSelector("tbody input[type='checkbox']"));
         
-        // Get all user rows from the table
+
         private IList<IWebElement> LectorRows => _driver.FindElements(By.CssSelector("table.table tbody tr"));
-        
-        // Get edit and delete buttons for a specific user row
+
         private IWebElement GetEditButton(IWebElement lectorRow) => lectorRow.FindElement(By.CssSelector("a.btn-outline-primary"));
         private IWebElement GetDeleteButton(IWebElement lectorRow) => lectorRow.FindElement(By.CssSelector("a.btn-outline-danger"));
 
-        // Navigation methods
+
         public void NavigateToLectorIndexPage()
         {
             try
@@ -42,7 +41,7 @@ namespace UITests.PageObjects
                 Console.WriteLine($"Navigating to: {TestConfig.BaseUrl}/Usuario");
                 _driver.Navigate().GoToUrl($"{TestConfig.BaseUrl}/Usuario");
                 
-                // Wait for the page to load
+
                 _wait.Until(driver => driver.FindElement(By.TagName("h1")).Displayed);
                 Console.WriteLine("Successfully navigated to Lector Index page");
             }
@@ -70,7 +69,7 @@ namespace UITests.PageObjects
         {
             try
             {
-                // Check if table exists and has rows
+
                 return LectorRows.Count > 0;
             }
             catch (NoSuchElementException)
@@ -90,7 +89,7 @@ namespace UITests.PageObjects
 
                 Console.WriteLine("Selecting all lectores from the list");
                 
-                // Try to find and click a "Select All" checkbox
+
                 try
                 {
                     SelectAllCheckbox.Click();
@@ -98,7 +97,7 @@ namespace UITests.PageObjects
                 }
                 catch (NoSuchElementException)
                 {
-                    // If no Select All checkbox exists, manually select all individual checkboxes
+
                     Console.WriteLine("No Select All checkbox found, selecting individual checkboxes");
                     foreach (var checkbox in IndividualCheckboxes)
                     {
@@ -128,7 +127,7 @@ namespace UITests.PageObjects
                     return true;
                 }
 
-                // Check if Select All checkbox is selected
+
                 try
                 {
                     if (SelectAllCheckbox.Selected)
@@ -139,16 +138,15 @@ namespace UITests.PageObjects
                 }
                 catch (NoSuchElementException)
                 {
-                    // Check if all individual checkboxes are selected
+
                     var checkboxes = IndividualCheckboxes;
                     if (checkboxes.Count == 0)
                     {
-                        // If no checkboxes exist, assume selection means all rows are highlighted/active
+
                         Console.WriteLine("No checkboxes found, checking for visual selection indicators");
                         var selectedRows = _driver.FindElements(By.CssSelector("table.table tbody tr.selected, table.table tbody tr.active"));
                         
-                        // If no visual indicators exist either, consider the operation successful 
-                        // since we successfully navigated and attempted selection without errors
+
                         if (selectedRows.Count == 0)
                         {
                             Console.WriteLine("No visual selection indicators found, but selection operation completed successfully - considering as successful");
@@ -168,8 +166,7 @@ namespace UITests.PageObjects
             catch (Exception ex)
             {
                 Console.WriteLine($"Error checking if all lectores are selected: {ex.Message}");
-                // If we encounter an error but successfully executed the selection operation,
-                // consider it successful for the happy path scenario
+
                 Console.WriteLine("Considering as successful since selection operation completed without throwing exceptions");
                 return true;
             }
@@ -190,7 +187,7 @@ namespace UITests.PageObjects
                 Console.WriteLine("Clicking delete for first lector from the list");
                 deleteButton.Click();
                 
-                // Wait for navigation to delete page
+
                 _wait.Until(driver => driver.Url.Contains("/Delete"));
                 Console.WriteLine("Successfully navigated to Delete page");
             }

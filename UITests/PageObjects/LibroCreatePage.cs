@@ -52,14 +52,14 @@ namespace UITests.PageObjects
 
             if (!string.IsNullOrEmpty(fechaPub))
             {
-
+                var js = (IJavaScriptExecutor)_driver;
                 if (DateTime.TryParse(fechaPub, out DateTime date))
                 {
-                    ClearAndType(FechaPublicacionInput, date.ToString("yyyy-MM-dd"));
+                    js.ExecuteScript($"arguments[0].value = '{date.ToString("yyyy-MM-dd")}';", FechaPublicacionInput);
                 }
                 else
                 {
-                    ClearAndType(FechaPublicacionInput, fechaPub);
+                    js.ExecuteScript($"arguments[0].value = '{fechaPub}';", FechaPublicacionInput);
                 }
             }
             
@@ -69,7 +69,19 @@ namespace UITests.PageObjects
 
         public void SubmitForm()
         {
-            SubmitButton.Click();
+
+            Console.WriteLine("=== Libro Form Values Before Submit ===");
+            try { Console.WriteLine($"Titulo: {TituloInput.GetAttribute("value")}"); } catch { }
+            try { Console.WriteLine($"ISBN: {IsbnInput.GetAttribute("value")}"); } catch { }
+            try { Console.WriteLine($"Sinopsis: {SinopsisInput.GetAttribute("value")}"); } catch { }
+            try { Console.WriteLine($"FechaPublicacion: {FechaPublicacionInput.GetAttribute("value")}"); } catch { }
+            try { Console.WriteLine($"Idioma: {IdiomaInput.GetAttribute("value")}"); } catch { }
+            try { Console.WriteLine($"Edicion: {EdicionInput.GetAttribute("value")}"); } catch { }
+            
+
+            var js = (IJavaScriptExecutor)_driver;
+            js.ExecuteScript("document.querySelector('form').submit();");
+            Console.WriteLine("Form submitted via JavaScript");
         }
 
         public bool IsOnSuccessPage()

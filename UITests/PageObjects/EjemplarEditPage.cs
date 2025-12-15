@@ -79,7 +79,7 @@ namespace UITests.PageObjects
             Console.WriteLine("Clicking submit button...");
             try
             {
-                // Log current form values before submit
+
                 Console.WriteLine($"  Descripcion: {DescripcionInput.GetAttribute("value")}");
                 Console.WriteLine($"  Observaciones: {ObservacionesInput.GetAttribute("value")}");
                 Console.WriteLine($"  FechaAdquisicion: {FechaAdquisicionInput.GetAttribute("value")}");

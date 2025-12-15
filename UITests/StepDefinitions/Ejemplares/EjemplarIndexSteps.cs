@@ -5,6 +5,7 @@ using UITests.PageObjects;
 namespace UITests.StepDefinitions.Ejemplares
 {
     [Binding]
+    [Scope(Feature = "Operaciones en la página de índice de ejemplares")]
     public class EjemplarIndexSteps
     {
         private readonly EjemplarIndexPage _ejemplarIndexPage;

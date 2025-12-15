@@ -40,7 +40,7 @@ namespace UITests.PageObjects
                 Console.WriteLine("Confirming deletion by clicking Delete button");
                 DeleteButton.Click();
                 
-                // Wait for navigation back to Index page
+
                 _wait.Until(driver => driver.Url.Contains("/Usuario") && !driver.Url.Contains("/Delete"));
                 Console.WriteLine("Successfully confirmed deletion and returned to Index page");
             }
@@ -59,7 +59,7 @@ namespace UITests.PageObjects
                 Console.WriteLine("Canceling deletion by clicking Cancel button");
                 CancelButton.Click();
                 
-                // Wait for navigation back to Index page
+
                 _wait.Until(driver => driver.Url.Contains("/Usuario") && !driver.Url.Contains("/Delete"));
                 Console.WriteLine("Successfully canceled deletion and returned to Index page");
             }

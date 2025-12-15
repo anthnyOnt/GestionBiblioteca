@@ -21,7 +21,7 @@ namespace UITests
                 options.AddArguments("--disable-extensions");
 
                 _driver = new ChromeDriver(options);
-                _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3); 
+                _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1); 
             }
             return _driver;
         }
