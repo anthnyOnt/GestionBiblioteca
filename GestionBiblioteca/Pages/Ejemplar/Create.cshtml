@@ -9,35 +9,36 @@
 </div>
 
 <form method="post" class="mt-3">
+    <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
     <div class="row g-3">
         <div class="col-md-6">
-            <label for="Input_IdLibro" class="form-label">Libro</label>
+            <label asp-for="Input.IdLibro" class="form-label">Libro</label>
             <select name="Input.IdLibro" id="Input_IdLibro" class="form-select" data-testid="idlibro" asp-items="Model.LibrosSelect">
                 <option value="">-- Seleccione un libro --</option>
             </select>
-            <span class="text-danger" data-testid="idlibro-error" data-valmsg-for="Input.IdLibro" data-valmsg-replace="true"></span>
+            <span asp-validation-for="Input.IdLibro" class="text-danger" data-testid="idlibro-error"></span>
         </div>
 
         <div class="col-md-6">
-            <label for="Input_FechaAdquisicion" class="form-label">Fecha adquisición</label>
-            <input name="Input.FechaAdquisicion" id="Input_FechaAdquisicion" class="form-control" type="date" data-testid="fechaadquisicion" />
-            <span class="text-danger" data-testid="fechaadquisicion-error" data-valmsg-for="Input.FechaAdquisicion" data-valmsg-replace="true"></span>
+            <label asp-for="Input.FechaAdquisicion" class="form-label">Fecha adquisición</label>
+            <input asp-for="Input.FechaAdquisicion" class="form-control" type="date" data-testid="fechaadquisicion" />
+            <span asp-validation-for="Input.FechaAdquisicion" class="text-danger" data-testid="fechaadquisicion-error"></span>
         </div>
 
         <div class="col-12">
-            <label for="Input_Descripcion" class="form-label">Descripción</label>
-            <input name="Input.Descripcion" id="Input_Descripcion" class="form-control" data-testid="descripcion" />
-            <span class="text-danger" data-testid="descripcion-error" data-valmsg-for="Input.Descripcion" data-valmsg-replace="true"></span>
+            <label asp-for="Input.Descripcion" class="form-label">Descripción</label>
+            <input name="Input.Descripcion" id="Input_Descripcion" class="form-control" value="@Model.Input.Descripcion" data-testid="descripcion" />
+            <span asp-validation-for="Input.Descripcion" class="text-danger" data-testid="descripcion-error"></span>
         </div>
 
         <div class="col-12">
-            <label for="Input_Observaciones" class="form-label">Observaciones</label>
-            <input name="Input.Observaciones" id="Input_Observaciones" class="form-control" data-testid="observaciones" />
-            <span class="text-danger" data-testid="observaciones-error" data-valmsg-for="Input.Observaciones" data-valmsg-replace="true"></span>
+            <label asp-for="Input.Observaciones" class="form-label">Observaciones</label>
+            <input name="Input.Observaciones" id="Input_Observaciones" class="form-control" value="@Model.Input.Observaciones" data-testid="observaciones" />
+            <span asp-validation-for="Input.Observaciones" class="text-danger" data-testid="observaciones-error"></span>
         </div>
 
         <div class="col-md-4">
-            <label for="Input_Disponible" class="form-label">Disponible</label>
+            <label asp-for="Input.Disponible" class="form-label">Disponible</label>
             <select name="Input.Disponible" id="Input_Disponible" class="form-select" data-testid="disponible">
                 <option value="true">Sí</option>
                 <option value="false">No</option>
